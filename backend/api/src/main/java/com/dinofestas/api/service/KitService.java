@@ -36,6 +36,8 @@ public class KitService {
         return kitRepository.findById(id)
                 .map(kit -> {
                     kit.setNome(kitAtualizado.getNome());
+                    kit.setItens(kitAtualizado.getItens());
+                    kit.setImagens(kitAtualizado.getImagens());
                     return kitRepository.save(kit);
                 }).orElseThrow(() -> new RuntimeException("Kit não encontrado"));
     }
