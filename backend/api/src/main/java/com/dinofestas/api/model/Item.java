@@ -1,6 +1,7 @@
 package com.dinofestas.api.model;
 
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "itens")
@@ -21,6 +22,8 @@ public class Item {
     // Armazenar apenas o ID do Kit
     @Column(name = "kit_id", nullable = false)
     private Long kitId; // Chave estrangeira
+
+    private List<String> imagens;
 
     // Construtor padrão
     public Item() {}
@@ -72,5 +75,13 @@ public class Item {
 
     public void setKitId(Long kitId) {
         this.kitId = kitId;
+    }
+
+    public List<String> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<String> imagens) {
+        this.imagens = imagens;
     }
 }

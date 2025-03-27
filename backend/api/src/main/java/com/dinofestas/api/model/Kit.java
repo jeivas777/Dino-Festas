@@ -14,7 +14,20 @@ public class Kit {
     @Column(nullable = false)
     private String nome;
 
-    // A classe Kit não precisa de um relacionamento explícito com Item
+    @OneToMany
+    @JoinColumn
+    private List<Item> itens;
+
+    private List<String> imagens;
+
+    public List<String> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<String> imagens) {
+        this.imagens = imagens;
+    }
+// A classe Kit não precisa de um relacionamento explícito com Item
 
     // Construtor padrão
     public Kit() {}
@@ -25,6 +38,7 @@ public class Kit {
     }
 
     // Getters e Setters
+
     public Long getId() {
         return id;
     }
@@ -39,5 +53,13 @@ public class Kit {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
     }
 }

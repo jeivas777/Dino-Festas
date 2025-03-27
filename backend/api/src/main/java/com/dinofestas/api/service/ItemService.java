@@ -38,6 +38,8 @@ public class ItemService {
                     item.setNome(itemAtualizado.getNome());
                     item.setDescricao(itemAtualizado.getDescricao());
                     item.setPreco(itemAtualizado.getPreco());
+                    item.setImagens(itemAtualizado.getImagens());
+                    item.setKitId(itemAtualizado.getKitId());
                     return itemRepository.save(item);
                 }).orElseThrow(() -> new RuntimeException("Item não encontrado"));
     }
