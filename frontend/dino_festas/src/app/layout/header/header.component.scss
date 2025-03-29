@@ -1,0 +1,52 @@
+.nav-bar {
+  background-color: var(--primary-color);
+  height: 80px;
+  padding: 15px 5%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-bar .logo {
+  height: 100%;
+}
+
+.nav-bar img {
+  height: 100%;
+}
+
+.nav-bar .nav-links {
+  height: 100%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  padding-right: 20%;
+}
+
+.nav-bar .nav-links ul {
+  text-decoration: none;
+  list-style: none;
+  display: flex;
+  gap: 32px;
+}
+
+.nav-bar .nav-links ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 20px;
+  position: relative; /* Necessário para o posicionamento do pseudo-elemento */
+}
+
+.nav-bar .nav-links ul li a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  transition: width 0.3s ease; /* Animação suave */
+}
+
+.nav-bar .nav-links ul li a:hover::after {
+  width: 100%; /* Expande a largura do sublinhado */
+}
