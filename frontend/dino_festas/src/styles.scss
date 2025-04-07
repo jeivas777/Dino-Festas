@@ -9,6 +9,7 @@
 html,
 body {
   height: 100%;
+  width: 100%;
   box-sizing: border-box;
 }
 
@@ -16,4 +17,30 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   padding: 0;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--primary-color);
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 400;
+  margin-top: 32px;
+  margin-bottom: 16px;
+  color: var(--primary-color);
+}
+
+p {
+  font-size: 16px;
+  font-weight: 400;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: white;
 }

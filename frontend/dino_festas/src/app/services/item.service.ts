@@ -1,20 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-export interface Kit {
-  id: number;
-  nome: string;
-  descricao: string;
-  // Outras propriedades do Kit
-}
+import { Kit } from './kit.service';
 
 export interface Item {
   id: number;
   nome: string;
   descricao: string;
   preco: number;
-  kit: Kit; // O kit agora é um objeto completo
+  kit: Kit;
 }
 
 @Injectable({
@@ -26,12 +20,8 @@ export class ItemService {
   constructor(private http: HttpClient) {}
 
   // Método atualizado para buscar itens com paginação
-  getItems(page: number = 0, size: number = 10): Observable<any> {
-    const params = new HttpParams()
-      .set('page', page.toString()) // Adiciona o número da página
-      .set('size', size.toString()); // Adiciona o tamanho da página
-
-    return this.http.get<any>(`${this.baseEndpoint}`, { params });
+  getItems(): Observable<any> {
+    return this.http.get<any>(`${this.baseEndpoint}`);
   }
 
   // Método para criar um novo item
