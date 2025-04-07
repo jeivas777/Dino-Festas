@@ -1,0 +1,20 @@
+.layout-admin {
+  display: flex;
+}
+
+.content-container {
+  width: 100%;
+  padding-left: 264px;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  padding-right: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .content-container {
+    padding-left: 204px;
+  }
+  .sidebar {
+    width: 100%;
+  }
+}
