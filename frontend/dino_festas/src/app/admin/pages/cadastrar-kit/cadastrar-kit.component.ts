@@ -11,15 +11,22 @@ import { HttpClientModule } from '@angular/common/http'; // Importa o módulo HT
   styleUrl: './cadastrar-kit.component.scss',
 })
 export class CadastrarKitComponent {
-  id: number | null = null;
-  nome: string | null = null;
-  descricao: string | null = null;
-  imagens: string[] | null = null; // Array de URLs de imagens
-  itens: Item[] | null = null; // Array de itens que pertencem ao kit
+  nome: string = '';
+  imagens: string[] = []; // Array de URLs de imagens
+  itens: Item[] = []; // Array de itens que pertencem ao kit
 
   constructor(private kitService: KitService) {}
 
   onSubmit(form: NgForm) {
-    console.log('Form submitted:', form.value);
+    const kit = {
+      nome: this.nome,
+      imagens: this.imagens,
+      itens: this.itens,
+    };
+
+    this.kitService.createKit(kit).subscribe((res) => {
+      console.log('Kit cadastrado com sucesso!', res);
+      form.resetForm(); // Limpa o formulário após o envio
+    });
   }
 }

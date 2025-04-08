@@ -14,58 +14,27 @@
         id="nome"
         required
         [(ngModel)]="nome"
-        #nomeRef="ngModel"
+        #descriçãoRef="ngModel"
       />
     </div>
 
     <div class="form-field-container">
-      <label class="label" for="">Nome</label>
+      <label class="label" for="">Imagens</label>
       <input
         class="input"
-        name="nome"
-        id="nome"
+        name="imagens"
+        id="imagens"
+        type="file"
+        accept="image/*"
         required
-        [(ngModel)]="nome"
-        #nomeRef="ngModel"
+        [(ngModel)]="imagens"
+        #imagensRef="ngModel"
       />
     </div>
 
-    <div class="form-field-container">
-      <label class="label" for="">Nome</label>
-      <input
-        class="input"
-        name="nome"
-        id="nome"
-        required
-        [(ngModel)]="nome"
-        #nomeRef="ngModel"
-      />
+    <div class="button-container">
+      <button type="button" class="cadastrar">Cancelar</button>
+      <button type="submit" class="pesquisar">Cadastrar</button>
     </div>
-
-    <div class="form-field-container">
-      <label class="label" for="">Nome</label>
-      <input
-        class="input"
-        name="nome"
-        id="nome"
-        required
-        [(ngModel)]="nome"
-        #nomeRef="ngModel"
-      />
-    </div>
-
-    <div class="form-field-container">
-      <label class="label" for="">Nome</label>
-      <input
-        class="input"
-        name="nome"
-        id="nome"
-        required
-        [(ngModel)]="nome"
-        #nomeRef="ngModel"
-      />
-    </div>
-
-    <button type="submit" class="pesquisar">Pesquisar</button>
   </form>
 </div>
