@@ -4,9 +4,7 @@ import { Observable } from 'rxjs';
 import { Item } from './item.service';
 
 export interface Kit {
-  id: number;
   nome: string;
-  descricao: string;
   imagens: string[]; // Array de URLs de imagens
   itens: Item[]; // Array de itens que pertencem ao kit
 }

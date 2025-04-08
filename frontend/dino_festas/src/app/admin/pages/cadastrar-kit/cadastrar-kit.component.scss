@@ -38,3 +38,15 @@ button {
   font-weight: 600;
   font-size: 16px;
 }
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cadastrar {
+  background-color: white;
+  color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+}
