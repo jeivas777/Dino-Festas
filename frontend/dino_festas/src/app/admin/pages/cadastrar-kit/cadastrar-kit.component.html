@@ -33,7 +33,13 @@
     </div>
 
     <div class="button-container">
-      <button type="button" class="cadastrar">Cancelar</button>
+      <button
+        type="button"
+        class="cadastrar"
+        [routerLink]="['/admin/gerenciar-kits']"
+      >
+        Cancelar
+      </button>
       <button type="submit" class="pesquisar">Cadastrar</button>
     </div>
   </form>

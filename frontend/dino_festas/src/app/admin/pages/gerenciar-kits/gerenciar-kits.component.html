@@ -67,10 +67,13 @@
     </div>
 
     <div class="button-container">
-      <button type="submit" class="cadastrar">Cadastrar</button>
+      <button type="submit" class="cadastrar" [routerLink]="['cadastrar']">
+        Cadastrar
+      </button>
       <button type="submit" class="pesquisar">Pesquisar</button>
     </div>
   </form>
 </div>
 
 <h2>Resultados</h2>
+<app-kit-card></app-kit-card>

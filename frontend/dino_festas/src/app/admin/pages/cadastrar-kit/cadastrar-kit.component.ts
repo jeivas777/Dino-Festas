@@ -3,10 +3,11 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { KitService } from '../../../services/kit.service';
 import { Item } from '../../../services/item.service';
 import { HttpClientModule } from '@angular/common/http'; // Importa o módulo HTTP
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-cadastrar-kit',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterModule],
   templateUrl: './cadastrar-kit.component.html',
   styleUrl: './cadastrar-kit.component.scss',
 })
