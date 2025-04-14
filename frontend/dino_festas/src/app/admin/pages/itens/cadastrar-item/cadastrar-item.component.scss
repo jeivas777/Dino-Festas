@@ -3,11 +3,6 @@
   flex-direction: column;
 }
 
-.form-field-container {
-  display: flex;
-  flex-direction: column;
-}
-
 .search-container {
   width: 100%;
 }
@@ -19,9 +14,10 @@
 }
 
 .search-container input {
-  padding: 10px 5px;
+  padding: 10px 15px;
   border-radius: 20px;
   border: 1px solid #cccccc;
+  font-size: 16px;
 }
 
 button {
@@ -32,7 +28,7 @@ button {
   border-radius: 20px;
   cursor: pointer;
   width: 50%;
-  height: 36px;
+  height: 40px;
   align-self: flex-end;
   justify-self: flex-end;
   font-weight: 600;
@@ -49,4 +45,8 @@ button {
   background-color: white;
   color: var(--secondary-color);
   border: 1px solid var(--secondary-color);
+}
+
+label {
+  margin-left: 16px;
 }

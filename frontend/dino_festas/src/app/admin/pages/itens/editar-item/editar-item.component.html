@@ -1,4 +1,4 @@
-<h1>Cadastrar kit</h1>
+<h1>Editar Item</h1>
 <div class="search-container">
   <form
     class="login-form"
@@ -14,8 +14,12 @@
         id="nome"
         required
         [(ngModel)]="nome"
-        #descriçãoRef="ngModel"
+        #nomeRef="ngModel"
       />
+      <app-error-message
+        [control]="nomeRef"
+        fieldName="nome"
+      ></app-error-message>
     </div>
 
     <div class="form-field-container">
@@ -27,20 +31,28 @@
         type="file"
         accept="image/*"
         required
+        multiple
+        (change)="onFileSelected($event)"
         [(ngModel)]="imagens"
         #imagensRef="ngModel"
       />
+      <app-error-message
+        [control]="imagensRef"
+        fieldName="imagens"
+      ></app-error-message>
     </div>
 
+    <div></div>
     <div class="button-container">
-      <button
-        type="button"
-        class="cadastrar"
-        [routerLink]="['/admin/gerenciar-kits']"
-      >
+      <button type="button" class="cadastrar" [routerLink]="['/admin/kits']">
         Cancelar
       </button>
-      <button type="submit" class="pesquisar">Cadastrar</button>
+      <button type="submit" class="pesquisar">Editar</button>
     </div>
   </form>
 </div>
+
+<app-sucess-popup
+  [show]="showSucess"
+  message="Kit editado com sucesso!"
+></app-sucess-popup>

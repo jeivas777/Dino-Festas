@@ -4,10 +4,11 @@ import { Observable } from 'rxjs';
 import { Kit } from './kit.service';
 
 export interface Item {
-  id: number;
+  id?: number;
   nome: string;
   descricao: string;
-  preco: number;
+  preco?: number;
+  imagens: string[];
   kit: Kit;
 }
 
@@ -15,7 +16,7 @@ export interface Item {
   providedIn: 'root',
 })
 export class ItemService {
-  private baseEndpoint = 'http://localhost:8080/api/items';
+  private baseEndpoint = 'http://localhost:8080/api/itens';
 
   constructor(private http: HttpClient) {}
 
@@ -37,5 +38,15 @@ export class ItemService {
   // Método para excluir um item
   deleteItem(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseEndpoint}/${id}`);
+  }
+
+  uploadImages(files: File[]): Observable<string[]> {
+    const formData = new FormData();
+    files.forEach((file) => formData.append('files', file));
+
+    return this.http.post<string[]>(
+      `${this.baseEndpoint}/upload-imagens`,
+      formData
+    );
   }
 }

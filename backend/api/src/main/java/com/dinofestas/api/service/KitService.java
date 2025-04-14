@@ -16,7 +16,11 @@ public class KitService {
         this.kitRepository = kitRepository;
     }
 
-    public List<Kit> listarTodos() {
+    public List<Kit> listarTodos(String query) {
+        System.out.println(query);
+        if(query != null && !query.trim().isEmpty()){
+            return kitRepository.findByNomeContainingIgnoreCase(query);
+        }
         return kitRepository.findAll();
     }
 
@@ -25,6 +29,9 @@ public class KitService {
     }
 
     public Kit salvar(Kit kit) {
+        if (kit.getItens() != null) {
+            kit.getItens().forEach(item -> item.setKit(kit));
+        }
         return kitRepository.save(kit);
     }
 
@@ -34,11 +41,17 @@ public class KitService {
 
     public Kit atualizar(Long id, Kit kitAtualizado) {
         return kitRepository.findById(id)
-                .map(kit -> {
-                    kit.setNome(kitAtualizado.getNome());
-                    kit.setItens(kitAtualizado.getItens());
-                    kit.setImagens(kitAtualizado.getImagens());
-                    return kitRepository.save(kit);
-                }).orElseThrow(() -> new RuntimeException("Kit não encontrado"));
+        .map(kit -> {
+            kit.setNome(kitAtualizado.getNome());
+            kit.setImagens(kitAtualizado.getImagens());
+
+            if (kitAtualizado.getItens() != null) {
+                kitAtualizado.getItens().forEach(item -> item.setKit(kit));
+            }
+
+            kit.setItens(kitAtualizado.getItens());
+
+            return kitRepository.save(kit);
+        }).orElseThrow(() -> new RuntimeException("Kit não encontrado"));
     }
 }

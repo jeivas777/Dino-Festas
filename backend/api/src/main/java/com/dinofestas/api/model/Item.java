@@ -3,6 +3,9 @@ package com.dinofestas.api.model;
 import jakarta.persistence.*;
 import java.util.List;
 
+import com.dinofestas.api.converter.JsonStringListConverter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name = "itens")
 public class Item {
@@ -16,24 +19,26 @@ public class Item {
 
     private String descricao;
 
-    @Column(nullable = false)
     private Double preco;
 
-    // Armazenar apenas o ID do Kit
-    @Column(name = "kit_id", nullable = false)
-    private Long kitId; // Chave estrangeira
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "kit_id", nullable = false)
+    @JsonBackReference
+    private Kit kit; // Relacionamento com Kit
 
+    @Column(columnDefinition = "TEXT")
+    @Convert(converter = JsonStringListConverter.class)
     private List<String> imagens;
 
     // Construtor padrão
     public Item() {}
 
     // Construtor com parâmetros
-    public Item(String nome, String descricao, Double preco, Long kitId) {
+    public Item(String nome, String descricao, Double preco, Kit kit) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.kitId = kitId; // Apenas o ID do Kit
+        this.kit = kit;
     }
 
     // Getters e Setters
@@ -69,12 +74,12 @@ public class Item {
         this.preco = preco;
     }
 
-    public Long getKitId() {
-        return kitId;
+    public Kit getKit() {
+        return kit;
     }
 
-    public void setKitId(Long kitId) {
-        this.kitId = kitId;
+    public void setKit(Kit kit) {
+        this.kit = kit;
     }
 
     public List<String> getImagens() {

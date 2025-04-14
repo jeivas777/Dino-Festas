@@ -1,0 +1,45 @@
+<h1>Gerenciar itens</h1>
+<h2 *ngIf="kit">{{ kit.nome }} #{{ kit.id }}</h2>
+<div class="search-container">
+  <form
+    class="search-form"
+    action=""
+    #searchForm="ngForm"
+    (ngSubmit)="onSubmit(searchForm)"
+  >
+    <div class="form-field-container">
+      <input
+        class="input"
+        name="query"
+        id="query"
+        required
+        [(ngModel)]="query"
+        #queryRef="ngModel"
+        placeholder="Pesquisar"
+      />
+    </div>
+
+    <div class="button-container">
+      <div class="button-container">
+        <button type="button" class="cadastrar" [routerLink]="['/admin/kits']">
+          Voltar
+        </button>
+      </div>
+      <button type="button" class="cadastrar" [routerLink]="['cadastrar']">
+        Cadastrar
+      </button>
+      <button type="submit" class="pesquisar">Pesquisar</button>
+    </div>
+  </form>
+</div>
+
+<h2>Resultados</h2>
+
+<div class="items-container" *ngIf="itens.length > 0; else noResults">
+  <app-item-card *ngFor="let item of itens" [item]="item"></app-item-card>
+</div>
+<!-- (deleted)="removeItem($event)" -->
+
+<ng-template #noResults>
+  <h2 class="nenhum-item-encontrado">Nenhum item encontrado :(</h2>
+</ng-template>

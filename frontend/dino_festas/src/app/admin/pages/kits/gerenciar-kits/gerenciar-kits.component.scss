@@ -1,11 +1,16 @@
 .form-field-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.form-field-container {
+.search-form {
   display: flex;
   flex-direction: column;
+}
+
+.search-form label {
+  margin-left: 16px;
 }
 
 .search-container {
@@ -13,15 +18,15 @@
 }
 
 .search-container form {
-  display: grid;
+  display: flex;
   gap: 16px;
-  grid-template-columns: repeat(2, 1fr);
 }
 
 .search-container input {
-  padding: 10px 5px;
+  padding: 10px 10px;
   border-radius: 20px;
   border: 1px solid #cccccc;
+  font-size: 16px;
 }
 
 button {
@@ -31,8 +36,8 @@ button {
   padding: 10px 20px;
   border-radius: 20px;
   cursor: pointer;
-  width: 50%;
-  height: 36px;
+  width: 25%;
+  height: 40px;
   align-self: flex-end;
   justify-self: flex-end;
   font-weight: 600;
@@ -41,12 +46,24 @@ button {
 
 .button-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 16px;
+  width: 100%;
 }
 
 .cadastrar {
   background-color: white;
   color: var(--secondary-color);
   border: 1px solid var(--secondary-color);
+}
+
+.kits-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.nenhum-kit-encontrado {
+  margin-top: 24px;
+  color: var(--apoio);
 }
