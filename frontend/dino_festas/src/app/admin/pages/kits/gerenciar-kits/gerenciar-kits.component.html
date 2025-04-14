@@ -1,0 +1,42 @@
+<h1>Gerenciar Kits</h1>
+<div class="search-container">
+  <form
+    class="search-form"
+    action=""
+    #searchForm="ngForm"
+    (ngSubmit)="onSubmit(searchForm)"
+  >
+    <div class="form-field-container">
+      <input
+        class="input"
+        name="query"
+        id="query"
+        required
+        [(ngModel)]="query"
+        #nomeRef="ngModel"
+        placeholder="Pesquisar"
+      />
+    </div>
+
+    <div class="button-container">
+      <button type="button" class="cadastrar" [routerLink]="['cadastrar']">
+        Cadastrar
+      </button>
+      <button type="submit" class="pesquisar">Pesquisar</button>
+    </div>
+  </form>
+</div>
+
+<h2>Resultados</h2>
+
+<div class="kits-container" *ngIf="kits && kits.length > 0; else noResults">
+  <app-kit-card
+    *ngFor="let kit of kits"
+    [kit]="kit"
+    (deleted)="removeKit($event)"
+  ></app-kit-card>
+</div>
+
+<ng-template #noResults>
+  <h2 class="nenhum-kit-encontrado">:( Nenhum kit encontrado</h2>
+</ng-template>

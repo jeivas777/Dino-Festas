@@ -1,0 +1,52 @@
+.form-field-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-container {
+  width: 100%;
+}
+
+.search-container form {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.search-container input {
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #cccccc;
+  font-size: 16px;
+}
+
+button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 50%;
+  height: 40px;
+  align-self: flex-end;
+  justify-self: flex-end;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cadastrar {
+  background-color: white;
+  color: var(--secondary-color);
+  border: 1px solid var(--secondary-color);
+}
+
+label {
+  margin-left: 16px;
+}

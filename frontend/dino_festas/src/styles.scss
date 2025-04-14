@@ -22,17 +22,20 @@ body {
 
 h1 {
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 700;
+  margin-top: 16px;
   margin-bottom: 16px;
   color: var(--primary-color);
 }
 
 h2 {
   font-size: 24px;
-  font-weight: 400;
-  margin-top: 32px;
+  font-weight: 500;
+  margin-top: 16px;
   margin-bottom: 16px;
   color: var(--primary-color);
+  display: flex;
+  align-items: center;
 }
 
 p {

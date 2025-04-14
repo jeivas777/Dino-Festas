@@ -1,7 +1,12 @@
 package com.dinofestas.api.model;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
+
+import com.dinofestas.api.converter.JsonStringListConverter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "kits")
@@ -14,11 +19,14 @@ public class Kit {
     @Column(nullable = false)
     private String nome;
 
-    @OneToMany
-    @JoinColumn
-    private List<Item> itens;
+    @OneToMany(mappedBy = "kit", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Item> itens = new ArrayList<>();
 
+    @Convert(converter = JsonStringListConverter.class)
+    @Column(columnDefinition = "TEXT")
     private List<String> imagens;
+
 
     public List<String> getImagens() {
         return imagens;
