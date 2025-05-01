@@ -2,9 +2,9 @@ services:
   - type: web
     name: dino-festas-api
     env: docker
-    repo: https://gitlab.com/SEU-USUARIO/dino-festas.git
+    repo: https://gitlab.com/jeivas777/dino-festas.git
     branch: main
-    dockerfilePath: backend/api/Dockerfile
+    dockerfilePath: Dockerfile
     plan: free
     autoDeploy: true
     envVars:
