@@ -6,7 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CategoriasService {
-  private baseEndpoint = 'http://localhost:8080/api/categoriasDisponiveis';
+  private baseEndpoint =
+    'https://dino-festas.onrender.com/api/categoriasDisponiveis';
 
   constructor(private http: HttpClient) {}
 

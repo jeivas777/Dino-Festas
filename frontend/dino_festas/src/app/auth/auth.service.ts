@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseEndpoint = 'http://localhost:8080/admin/login';
+  private baseEndpoint = 'https://dino-festas.onrender.com//admin/login';
 
   constructor(private http: HttpClient) {}
 
