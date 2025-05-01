@@ -51,9 +51,8 @@ export class CadastrarItemComponent {
 
     // Percorre os kits e adiciona as categorias únicas no Set
     this.categorias.getCategorias().subscribe((res) => {
-      console.log(res);
-      // categoriasSet.add(res.nome); // Adiciona o nome da categoria no Set
-      // this.categoriasDisponiveis = [...categoriasSet];
+      categoriasSet.add(res.nome); // Adiciona o nome da categoria no Set
+      this.categoriasDisponiveis = [...categoriasSet];
     });
   }
 
