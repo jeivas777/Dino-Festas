@@ -14,11 +14,12 @@ import java.util.Date;
 @Service
 public class JwtService {
 
-    @Value("${api.security.token.secret}")
-    private static final String SECRET_KEY = "sua_chave_super_secreta_sua_chave_super_secreta"; 
-    // precisa ter pelo menos 256 bits (32 caracteres) para HS256
+    private final Key key;
 
-    private final Key key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
+    public JwtService(@Value("${api.security.token.secret}") String secretKey) {
+        // Usa a chave vinda da configuração
+        this.key = Keys.hmacShaKeyFor(secretKey.getBytes());
+    }
 
     public String generateToken(AdminUser user) {
         try{
