@@ -62,3 +62,41 @@ button {
   margin-top: 24px;
   color: var(--apoio);
 }
+
+@media (max-width: 768px) {
+  .button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 50%;
+  height: 40px;
+  align-self: flex-end;
+  justify-self: flex-end;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.cadastrar:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.pesquisar:hover {
+  background-color: var(--primary-color);
+}

@@ -1,0 +1,35 @@
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div
+      *ngFor="let grupo of pacotesPaginados; let i = index"
+      class="carousel-item"
+      [class.active]="i === 0"
+    >
+      <div class="pacotes-container d-flex justify-content-center gap-3">
+        <app-pacotes-card
+          *ngFor="let pacote of grupo"
+          [pacote]="pacote"
+        ></app-pacotes-card>
+      </div>
+    </div>
+  </div>
+
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#carouselExample"
+    data-bs-slide="prev"
+  >
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#carouselExample"
+    data-bs-slide="next"
+  >
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

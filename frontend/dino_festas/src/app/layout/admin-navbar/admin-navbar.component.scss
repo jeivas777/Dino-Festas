@@ -27,13 +27,6 @@
   max-width: 100%;
 }
 
-.sidebar .nav-links li a {
-  color: white;
-  text-decoration: none;
-  font-size: 20px;
-  text-wrap: break-word;
-}
-
 @media (max-width: 768px) {
   .sidebar .nav-links li a {
     font-size: 18px;
@@ -41,4 +34,28 @@
   .sidebar {
     width: 180px;
   }
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background-color: rgba($color: #000000, $alpha: 0);
+}
+
+.sidebar .nav-links li a.active {
+  color: var(--primary-color); /* Cor de destaque para o item ativo */
+  font-weight: 600; /* Aumenta o peso da fonte para chamar a atenção */
+}
+
+.sidebar .nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  text-wrap: break-word;
+  transition: color 0.3s;
+}
+
+.sidebar .nav-links li a:hover {
+  color: var(--primary-color);
 }

@@ -1,0 +1,43 @@
+<div class="login-section">
+  <div class="login-container">
+    <h1>Faça login</h1>
+    <form
+      class="login-form"
+      action=""
+      #loginForm="ngForm"
+      (ngSubmit)="onSubmit(loginForm)"
+    >
+      <label class="label" for="">Usuário</label>
+      <input
+        class="input"
+        name="usuario"
+        id="usuario"
+        required
+        [(ngModel)]="usuario"
+        #usuarioRef="ngModel"
+      />
+      <app-error-message
+        [control]="usuarioRef"
+        fieldName="usuario"
+      ></app-error-message>
+
+      <label class="label" for="">Senha</label>
+      <input
+        class="input"
+        type="password"
+        name="senha"
+        id="senha"
+        required
+        [(ngModel)]="senha"
+        #senhaRef="ngModel"
+      />
+      <app-error-message
+        [control]="senhaRef"
+        fieldName="senha"
+      ></app-error-message>
+
+      <button type="submit" class="btn-entrar">Entrar</button>
+      <p *ngIf="erro">Usuário ou senha inválidos</p>
+    </form>
+  </div>
+</div>

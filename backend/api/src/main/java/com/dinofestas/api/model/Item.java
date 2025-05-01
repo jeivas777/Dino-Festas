@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.util.List;
 
 import com.dinofestas.api.converter.JsonStringListConverter;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "itens")
@@ -17,14 +16,17 @@ public class Item {
     @Column(nullable = false)
     private String nome;
 
-    private String descricao;
+    @Column(nullable = false)
+    private String categoria;
 
-    private Double preco;
+    @Column(nullable = false)
+    private Long codigo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "kit_id", nullable = false)
-    @JsonBackReference
-    private Kit kit; // Relacionamento com Kit
+    @Column(nullable = false)
+    private Double valor;
+
+    @Column(nullable = false)
+    private String tema;
 
     @Column(columnDefinition = "TEXT")
     @Convert(converter = JsonStringListConverter.class)
@@ -34,11 +36,9 @@ public class Item {
     public Item() {}
 
     // Construtor com parâmetros
-    public Item(String nome, String descricao, Double preco, Kit kit) {
+    public Item(String nome, Double valor) {
         this.nome = nome;
-        this.descricao = descricao;
-        this.preco = preco;
-        this.kit = kit;
+        this.valor = valor;
     }
 
     // Getters e Setters
@@ -58,28 +58,28 @@ public class Item {
         this.nome = nome;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getCategoria() {
+        return categoria;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
-    public Double getPreco() {
-        return preco;
+    public Long getCodigo() {
+        return codigo;
     }
 
-    public void setPreco(Double preco) {
-        this.preco = preco;
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
     }
 
-    public Kit getKit() {
-        return kit;
+    public Double getValor() {
+        return valor;
     }
 
-    public void setKit(Kit kit) {
-        this.kit = kit;
+    public void setValor(Double valor) {
+        this.valor = valor;
     }
 
     public List<String> getImagens() {
@@ -88,5 +88,13 @@ public class Item {
 
     public void setImagens(List<String> imagens) {
         this.imagens = imagens;
+    }
+
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
     }
 }

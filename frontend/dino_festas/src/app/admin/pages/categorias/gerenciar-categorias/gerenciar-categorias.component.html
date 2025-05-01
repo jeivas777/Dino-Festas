@@ -1,0 +1,46 @@
+<h1>Gerenciar categorias</h1>
+<div class="search-container">
+  <form
+    class="login-form"
+    (ngSubmit)="onSubmit(searchForm)"
+    #searchForm="ngForm"
+  >
+    <div class="categorias-container">
+      <label>Categorias</label>
+
+      <div
+        *ngFor="let categoria of categorias; let i = index"
+        class="categoria-item"
+      >
+        <input
+          class="input"
+          name="categoriaNome{{ i }}"
+          placeholder="Nome da Categoria"
+          [(ngModel)]="categoria.nome"
+          required
+        />
+        <button type="button" (click)="removeCategoria(i)">Remover</button>
+      </div>
+
+      <button
+        type="button"
+        class="add-categoria-button"
+        (click)="addCategoria()"
+      >
+        Adicionar Categoria
+      </button>
+    </div>
+
+    <div class="button-container">
+      <button type="button" class="cadastrar" (click)="reverterCategorias()">
+        Reverter
+      </button>
+      <button type="submit" class="pesquisar">Salvar</button>
+    </div>
+  </form>
+</div>
+
+<app-sucess-popup
+  [show]="showSucess"
+  message="Categorias atualizadas com sucesso!"
+></app-sucess-popup>

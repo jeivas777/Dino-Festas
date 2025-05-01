@@ -1,8 +1,8 @@
-import { Component, NgModule } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Kit, KitService } from '../../../../services/kit.service';
 import { Item, ItemService } from '../../../../services/item.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SucessPopupComponent } from '../../../../layout/messages/sucess-popup/sucess-popup.component';
 import { ErrorMessageComponent } from '../../../../layout/messages/error-message/error-message.component';
 import { CommonModule } from '@angular/common';
@@ -21,25 +21,40 @@ import { CommonModule } from '@angular/common';
 })
 export class CadastrarItemComponent {
   nome: string = '';
-  descricao: string = '';
-  imagens: string[] = []; // Array de URLs de imagens
-  itens: Item[] = []; // Array de itens que pertencem ao kit
+  categoria: string = '';
+  codigo: number = 0;
+  valor: number = 0;
+  tema: string = '';
+  imagens: string[] = [];
+  itens: Item[] = [];
   selectedFiles: File[] = [];
   showSucess: boolean = false;
 
   kit!: Kit;
+  categoriasDisponiveis: string[] = [];
 
   constructor(
     private kitService: KitService,
     private itemService: ItemService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    const idParam = +this.route.snapshot.paramMap.get('id')!;
+    this.carregarCategoriasDisponiveis();
+  }
 
-    this.kitService.getKit(idParam).subscribe((kit) => {
-      this.kit = kit;
+  carregarCategoriasDisponiveis() {
+    const categoriasSet = new Set<string>();
+
+    // Percorre os kits e adiciona as categorias únicas no Set
+    this.kitService.getKits().subscribe((kits) => {
+      kits.forEach((kit) => {
+        kit.categorias.forEach((categoria) => {
+          categoriasSet.add(categoria.nome); // Adiciona o nome da categoria no Set
+          this.categoriasDisponiveis = [...categoriasSet];
+        });
+      });
     });
   }
 
@@ -50,14 +65,18 @@ export class CadastrarItemComponent {
         .subscribe((urls: string[]) => {
           const item = {
             nome: this.nome,
-            descricao: this.descricao,
+            categoria: this.categoria,
+            codigo: this.codigo,
+            valor: this.valor,
             imagens: urls,
-            kit: this.kit,
+            tema: this.tema,
           };
 
           this.itemService.createItem(item).subscribe((res) => {
-            this.showSucess = true; // Exibe o popup de sucesso
-            form.resetForm();
+            this.showSucess = true;
+            setTimeout(() => {
+              this.router.navigate(['/admin/itens']);
+            }, 2000);
           });
         });
     } else {

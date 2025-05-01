@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { Item, ItemService } from '../../../services/item.service';
 import { ModalConfirmacaoComponent } from '../modal-confirmacao/modal-confirmacao.component';
+import { Kit } from '../../../services/kit.service';
 
 @Component({
   selector: 'app-item-card',
@@ -12,6 +13,7 @@ import { ModalConfirmacaoComponent } from '../modal-confirmacao/modal-confirmaca
 })
 export class ItemCardComponent {
   @Input() item!: Item;
+  @Input() kit!: Kit;
   @Output() deleted = new EventEmitter<number>();
   mainImage: string = '';
   showModal: boolean = false;
@@ -22,7 +24,7 @@ export class ItemCardComponent {
     this.mainImage = this.item.imagens[0];
   }
 
-  deleteKit(id: number): void {
+  deleteItem(id: number): void {
     this.deleted.emit(this.item.id);
   }
 

@@ -20,6 +20,13 @@
   font-size: 16px;
 }
 
+.search-container select {
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid #cccccc;
+  font-size: 16px;
+}
+
 button {
   background-color: var(--secondary-color);
   color: white;
@@ -49,4 +56,46 @@ button {
 
 label {
   margin-left: 16px;
+}
+
+.kit {
+  margin-left: 24px;
+}
+
+.item {
+  color: var(--secondary-color);
+  margin-left: 30px;
+}
+
+@media (max-width: 1028px) {
+  .search-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+button {
+  background-color: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 50%;
+  height: 40px;
+  align-self: flex-end;
+  justify-self: flex-end;
+  font-weight: 600;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.cadastrar:hover {
+  background-color: var(--secondary-color);
+  color: white;
+}
+
+.pesquisar:hover {
+  background-color: var(--primary-color);
 }

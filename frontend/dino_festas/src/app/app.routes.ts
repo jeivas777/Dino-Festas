@@ -8,28 +8,47 @@ import { CadastrarKitComponent } from './admin/pages/kits/cadastrar-kit/cadastra
 import { EditarKitComponent } from './admin/pages/kits/editar-kit/editar-kit.component';
 import { CadastrarItemComponent } from './admin/pages/itens/cadastrar-item/cadastrar-item.component';
 import { EditarItemComponent } from './admin/pages/itens/editar-item/editar-item.component';
+import { LoginPageComponent } from './admin/pages/login-page/login-page.component';
+import { authGuard } from './auth/auth.guard';
+import { GerenciarCategoriasComponent } from './admin/pages/categorias/gerenciar-categorias/gerenciar-categorias.component';
+import { EscolherItensComponent } from './main/pages/pacotes/escolher-itens/escolher-itens.component';
+import { SearchComponent } from './search/search.component';
 
 export const routes: Routes = [
+  {
+    path: 'admin/login',
+    component: LoginPageComponent,
+  },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: '',
     component: LayoutEcommerceComponent,
-    children: [{ path: 'home', component: HomeComponent }],
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: 'pacote/:id', component: EscolherItensComponent },
+      { path: 'search', component: SearchComponent },
+    ],
   },
-  // Layout para o admin
   {
     path: 'admin',
     component: LayoutAdminComponent,
+    canActivate: [authGuard],
     children: [
-      { path: 'kits', component: GerenciarKitsComponent },
-      { path: 'kits/cadastrar', component: CadastrarKitComponent },
-      { path: '', redirectTo: 'kits', pathMatch: 'full' }, // Redireciona para gerenciar-kits por padrão
-      { path: 'kits/editar/:id', component: EditarKitComponent },
-      { path: 'kits/itens/:id', component: GerenciarItensComponent },
-      { path: 'kits/itens/:id/cadastrar', component: CadastrarItemComponent },
-      { path: 'kits/itens/:id/editar/:idItem', component: EditarItemComponent },
+      { path: 'pacotes', component: GerenciarKitsComponent },
+      { path: 'pacotes/cadastrar', component: CadastrarKitComponent },
+      { path: '', redirectTo: 'pacotes', pathMatch: 'full' }, // Redireciona para gerenciar-kits por padrão
+      { path: 'pacotes/:id/editar', component: EditarKitComponent },
+      { path: 'itens', component: GerenciarItensComponent },
+      { path: 'itens/cadastrar', component: CadastrarItemComponent },
+      {
+        path: 'itens/:id/editar',
+        component: EditarItemComponent,
+      },
+      {
+        path: 'categorias',
+        component: GerenciarCategoriasComponent,
+      },
     ],
   },
-
   { path: '**', redirectTo: 'home' },
 ];

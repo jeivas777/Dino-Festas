@@ -1,0 +1,92 @@
+<div class="escolher-itens-container" *ngIf="pacote">
+  <h1 class="title">{{ pacote.nome }}</h1>
+  <p>Escolha os itens para compor seu pacote!</p>
+
+  <!-- Stepper Dinâmico -->
+  <div class="stepper-container">
+    <div class="stepper">
+      <div
+        class="categorias"
+        *ngFor="let categoria of pacote.categorias; let i = index"
+        [class.active]="i === currentStepIndex"
+        [class.clickable]="i <= currentStepIndex"
+        (click)="goToStep(i)"
+      >
+        {{ categoria.nome }}
+      </div>
+    </div>
+
+    <button [disabled]="!canAdvance()" (click)="nextStep()">
+      {{
+        currentStepIndex === pacote.categorias.length - 1
+          ? "Finalizar"
+          : "Avançar"
+      }}
+    </button>
+  </div>
+
+  <!-- Barra de Pesquisa -->
+  <form #myForm="ngForm" (ngSubmit)="onSearch(myForm)" class="input-container">
+    <svg
+      class="input-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      height="20px"
+      viewBox="0 -960 960 960"
+      width="20px"
+      fill="#333333"
+    >
+      <path
+        d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"
+      />
+    </svg>
+    <input
+      class="search-bar"
+      type="text"
+      name="query"
+      id="query"
+      ngModel
+      placeholder="Pesquise por um item"
+    />
+  </form>
+  <p *ngIf="currentCategoria">
+    Selecione {{ currentCategoria.quantidade }} {{ currentCategoria.nome }}:
+    {{ selecionadosNaCategoriaAtual.length }} de
+    {{ currentCategoria.quantidade }}
+  </p>
+  <!-- Itens filtrados -->
+  <app-itens-container
+    *ngIf="currentCategoria"
+    [nomeCategoria]="currentCategoria.nome"
+    [quantidadeCategoria]="currentCategoria.quantidade"
+    [selectedItemsInCategoria]="selectedItems[currentCategoria.id]"
+    [searchQuery]="searchQuery"
+    (itemSelected)="onItemSelect($event)"
+  >
+  </app-itens-container>
+</div>
+
+<!-- Toast container fixo -->
+<div
+  class="toast-container position-fixed bottom-0 end-0 p-3"
+  *ngIf="showToast"
+  style="z-index: 1100"
+>
+  <div
+    class="toast show text-white bg-success align-items-center border-0"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ toastMessage }}
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        aria-label="Close"
+        (click)="showToast = false"
+      ></button>
+    </div>
+  </div>
+</div>

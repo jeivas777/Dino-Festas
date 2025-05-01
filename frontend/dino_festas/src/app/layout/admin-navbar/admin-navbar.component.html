@@ -8,10 +8,33 @@
   </div>
   <ul class="nav-links">
     <li class="nav-item">
-      <a href="" [routerLink]="['/admin/kits']">Gerenciar kits</a>
+      <a
+        [routerLink]="['/admin/pacotes']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Gerenciar pacotes</a
+      >
     </li>
     <li class="nav-item">
-      <a href="">Sair</a>
+      <a
+        [routerLink]="['/admin/itens']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Gerenciar itens</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        [routerLink]="['/admin/categorias']"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Gerenciar categorias</a
+      >
+    </li>
+    <li class="nav-item">
+      <button (click)="sair()">
+        <a>Sair</a>
+      </button>
     </li>
   </ul>
 </div>

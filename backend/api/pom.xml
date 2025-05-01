@@ -56,16 +56,42 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-		<groupId>software.amazon.awssdk</groupId>
-		<artifactId>s3</artifactId>
-		<version>2.20.130</version> <!-- ou outra versão mais atual -->
+			<groupId>software.amazon.awssdk</groupId>
+			<artifactId>s3</artifactId>
+			<version>2.20.130</version> <!-- ou outra versão mais atual -->
 		</dependency>
 		<dependency>
-    <groupId>com.mysql</groupId>
-    <artifactId>mysql-connector-j</artifactId>
-    <version>8.3.0</version> <!-- ou a mais recente estável -->
-</dependency>
-
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.3.0</version> <!-- ou a mais recente estável -->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-api</artifactId>
+				<version>0.11.5</version>
+		</dependency>
+		<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-impl</artifactId>
+				<version>0.11.5</version>
+				<scope>runtime</scope>
+		</dependency>
+		<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-jackson</artifactId> <!-- Usa Jackson no lugar -->
+				<version>0.11.5</version>
+				<scope>runtime</scope>
+		</dependency>
+    <dependency>
+        <groupId>jakarta.servlet</groupId>
+        <artifactId>jakarta.servlet-api</artifactId>
+        <version>6.0.0</version>
+        <scope>provided</scope>
+    </dependency>
 	</dependencies>
 
 	<build>

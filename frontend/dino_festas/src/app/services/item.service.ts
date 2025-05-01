@@ -1,15 +1,23 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Kit } from './kit.service';
+import { map, Observable } from 'rxjs';
 
 export interface Item {
   id?: number;
   nome: string;
-  descricao: string;
-  preco?: number;
+  tema: string;
+  categoria: string;
+  valor: number;
+  codigo: number;
   imagens: string[];
-  kit: Kit;
+}
+
+export interface Page<T> {
+  content: T[];
+  totalElements: number;
+  totalPages: number;
+  size: number;
+  number: number; // página atual (0 = primeira página)
 }
 
 @Injectable({
@@ -20,22 +28,34 @@ export class ItemService {
 
   constructor(private http: HttpClient) {}
 
-  // Método atualizado para buscar itens com paginação
-  getItems(): Observable<any> {
-    return this.http.get<any>(`${this.baseEndpoint}`);
+  getItems(
+    query: string = '',
+    page: number = 0,
+    size: number = 10
+  ): Observable<Page<Item>> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    if (query) {
+      params = params.set('query', query);
+    }
+
+    return this.http.get<Page<Item>>(this.baseEndpoint, { params });
   }
 
-  // Método para criar um novo item
+  getItem(id: number): Observable<Item> {
+    return this.http.get<Item>(`${this.baseEndpoint}/${id}`);
+  }
+
   createItem(item: Item): Observable<Item> {
     return this.http.post<Item>(`${this.baseEndpoint}`, item);
   }
 
-  // Método para atualizar um item
   updateItem(id: number, item: Item): Observable<Item> {
     return this.http.put<Item>(`${this.baseEndpoint}/${id}`, item);
   }
 
-  // Método para excluir um item
   deleteItem(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseEndpoint}/${id}`);
   }
