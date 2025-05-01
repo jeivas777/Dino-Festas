@@ -6,6 +6,7 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { SucessPopupComponent } from '../../../../layout/messages/sucess-popup/sucess-popup.component';
 import { ErrorMessageComponent } from '../../../../layout/messages/error-message/error-message.component';
 import { CommonModule } from '@angular/common';
+import { CategoriasService } from '../../../../services/categorias.service';
 
 @Component({
   selector: 'app-cadastrar-item',
@@ -37,7 +38,8 @@ export class CadastrarItemComponent {
     private kitService: KitService,
     private itemService: ItemService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private categorias: CategoriasService
   ) {}
 
   ngOnInit(): void {
@@ -48,13 +50,10 @@ export class CadastrarItemComponent {
     const categoriasSet = new Set<string>();
 
     // Percorre os kits e adiciona as categorias únicas no Set
-    this.kitService.getKits().subscribe((kits) => {
-      kits.forEach((kit) => {
-        kit.categorias.forEach((categoria) => {
-          categoriasSet.add(categoria.nome); // Adiciona o nome da categoria no Set
-          this.categoriasDisponiveis = [...categoriasSet];
-        });
-      });
+    this.categorias.getCategorias().subscribe((res) => {
+      console.log(res);
+      // categoriasSet.add(res.nome); // Adiciona o nome da categoria no Set
+      // this.categoriasDisponiveis = [...categoriasSet];
     });
   }
 
@@ -84,8 +83,31 @@ export class CadastrarItemComponent {
     }
   }
 
-  onFileSelected(event: any) {
-    this.selectedFiles = Array.from(event.target.files);
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
+
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    const validFiles: File[] = [];
+    let rejectedFiles: string[] = [];
+
+    Array.from(input.files).forEach((file) => {
+      if (file.size <= maxSize) {
+        validFiles.push(file);
+      } else {
+        rejectedFiles.push(file.name);
+      }
+    });
+
+    if (rejectedFiles.length > 0) {
+      alert(
+        `Os seguintes arquivos excedem o limite de 2MB e foram ignorados:\n\n${rejectedFiles.join(
+          '\n'
+        )}`
+      );
+    }
+
+    this.selectedFiles = validFiles;
   }
 
   markAllFieldsAsTouched(form: NgForm) {
