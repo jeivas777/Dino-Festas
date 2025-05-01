@@ -22,9 +22,7 @@ export class ShoppingCartService {
     const currentCart = this.cartProductsSubject.value;
 
     const updatedCart = currentCart.filter(
-      (cartProduct) =>
-        cartProduct.id !== product.id ||
-        cartProduct.selectedSize !== product.selectedSize
+      (cartProduct) => cartProduct.id !== product.id
     );
 
     this.cartProductsSubject.next(updatedCart);
