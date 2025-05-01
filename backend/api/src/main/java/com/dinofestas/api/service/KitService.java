@@ -17,7 +17,6 @@ public class KitService {
     }
 
     public List<Kit> listarTodos(String query) {
-        System.out.println(query);
         if(query != null && !query.trim().isEmpty()){
             return kitRepository.findByNomeContainingIgnoreCase(query);
         }
@@ -29,9 +28,6 @@ public class KitService {
     }
 
     public Kit salvar(Kit kit) {
-        if (kit.getItens() != null) {
-            kit.getItens().forEach(item -> item.setKit(kit));
-        }
         return kitRepository.save(kit);
     }
 
@@ -40,18 +36,24 @@ public class KitService {
     }
 
     public Kit atualizar(Long id, Kit kitAtualizado) {
+        System.out.println("ID do kit " + id);
         return kitRepository.findById(id)
         .map(kit -> {
             kit.setNome(kitAtualizado.getNome());
+
             kit.setImagens(kitAtualizado.getImagens());
 
-            if (kitAtualizado.getItens() != null) {
-                kitAtualizado.getItens().forEach(item -> item.setKit(kit));
-            }
+            kit.setValor(kitAtualizado.getValor());
 
-            kit.setItens(kitAtualizado.getItens());
+            if (kitAtualizado.getCategorias() != null) {
+                kit.getCategorias().clear(); // remove os antigos
+                kitAtualizado.getCategorias().forEach(categoria -> {
+                    kit.getCategorias().add(categoria); // adiciona à lista
+                });
+            }
 
             return kitRepository.save(kit);
         }).orElseThrow(() -> new RuntimeException("Kit não encontrado"));
     }
 }
+

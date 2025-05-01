@@ -1,7 +1,85 @@
-.main-section {
+.img-container {
+  width: 100%;
+  height: 600px;
   display: flex;
-  height: 720px;
-  margin: 0 auto;
-  background-color: var(--secondary-color);
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  letter-spacing: 2px;
   padding: 0 20px;
+  position: relative;
+  margin-bottom: 40px;
+
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.5),
+      rgba(255, 255, 255, 1)
+    ),
+    url("https://imagens-kits-dinofestas.s3.us-east-2.amazonaws.com/AdobeStock_1308923584.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.img-container.loaded {
+  opacity: 1;
+}
+
+.hero-text {
+  z-index: 2;
+  animation: fadeIn 1.5s ease-in-out forwards;
+  opacity: 0;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6); /* melhora contraste com imagem */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  padding: 8px;
+}
+
+.text-container h1 {
+  color: #333;
+  text-align: center;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 40px */
+  letter-spacing: -0.64px;
+}
+
+@media (max-width: 1028px) {
+  .img-container {
+    font-size: 32px;
+    font-weight: 700;
+  }
+}
+
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px;
+}
+
+@media (max-width: 680px) {
+  .home-container {
+    padding: 0;
+  }
 }

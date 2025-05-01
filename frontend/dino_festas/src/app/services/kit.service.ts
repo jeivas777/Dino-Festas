@@ -1,13 +1,15 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Item } from './item.service';
+import { AuthService } from '../auth/auth.service';
 
 export interface Kit {
   id?: number;
   nome: string;
   imagens: string[]; // Array de URLs de imagens
-  itens: Item[]; // Array de itens que pertencem ao kit
+  valor: number;
+  categorias: any[];
 }
 
 @Injectable({

@@ -1,0 +1,75 @@
+.pacotes-container {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px 0;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  padding: 8px;
+}
+
+.text-container h1 {
+  color: #222; // Mais escuro
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 125%;
+  letter-spacing: -0.64px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 4rem;
+  height: 4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: none; // Remove o ícone padrão
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-control-prev-icon::before,
+.carousel-control-next-icon::before {
+  content: "";
+  display: block;
+  width: 12px;
+  height: 12px;
+  border: solid #333;
+  border-width: 0 2px 2px 0;
+  padding: 4px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(135deg);
+}
+
+.carousel-control-next-icon::before {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Ajustes de espaçamento em telas pequenas */
+@media (max-width: 768px) {
+  .pacotes-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .text-container h1 {
+    font-size: 24px;
+  }
+}

@@ -1,7 +1,7 @@
 .kit-card {
-  width: 100%;
-  height: 120px;
+  height: auto;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   border: 1px solid #cccccc;
   border-radius: 20px;
@@ -9,22 +9,31 @@
   box-sizing: border-box;
   box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
     0 15px 40px rgba(166, 173, 201, 0.2);
+  flex-wrap: wrap;
 }
 
-.image-container {
+.content-container {
   display: flex;
   gap: 32px;
 }
 
-.image-container img {
+.image-container {
+  width: 320px;
   max-width: 100%;
-  max-height: 100%;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 16px;
 }
 
 .kit-card .buttons-container {
   width: 200px;
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 
 .kit-card button {
@@ -32,4 +41,33 @@
   background-color: rgba(0, 0, 0, 0);
   border: 0;
   cursor: pointer;
+}
+
+/* Responsivo para tablets e celulares */
+@media (max-width: 1028px) {
+  .kit-card {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .content-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .image-container {
+    width: 100%;
+  }
+
+  .kit-card .buttons-container {
+    width: 100%;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .kit-card button {
+    width: 45%;
+  }
 }

@@ -1,4 +1,16 @@
-<div>
-  <div class=""></div>
-  <div class=""></div>
+<div class="itens-container">
+  <div
+    *ngFor="let item of itens"
+    (click)="onItemClick(item)"
+    [ngClass]="{ selected: isSelected(item) }"
+  >
+    <app-item-card [item]="item"></app-item-card>
+  </div>
 </div>
+
+<app-pagination
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  (pageChange)="onPageChange($event)"
+>
+</app-pagination>

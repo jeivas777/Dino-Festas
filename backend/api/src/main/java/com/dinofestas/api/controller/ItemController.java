@@ -2,10 +2,13 @@ package com.dinofestas.api.controller;
 
 import com.dinofestas.api.model.Item;
 import com.dinofestas.api.service.ItemService;
+
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -19,8 +22,10 @@ public class ItemController {
     }
 
     @GetMapping
-    public List<Item> listarTodos() {
-        return itemService.listarTodos();
+    public Page<Item> listarTodos(
+            @RequestParam(required = false) String query,
+            @PageableDefault(size = 10) Pageable pageable) {
+        return itemService.listarTodos(query, pageable);
     }
 
     @GetMapping("/{id}")

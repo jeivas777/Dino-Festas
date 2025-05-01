@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-admin-navbar',
@@ -10,15 +11,16 @@ import { Router, RouterModule } from '@angular/router';
   styleUrls: ['./admin-navbar.component.scss'],
 })
 export class AdminNavbarComponent {
-  isExpanded = true;
+  isExpanded = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   toggleSidebar(): void {
     this.isExpanded = !this.isExpanded;
   }
 
-  navigateTo(path: string): void {
-    this.router.navigate([`/admin/${path}`]);
+  sair(): void {
+    this.authService.logout();
+    this.router.navigate(['/admin/login']);
   }
 }

@@ -1,51 +1,115 @@
+/* Navbar fixa e animada */
 .nav-bar {
-  background-color: var(--primary-color);
-  height: 80px;
-  padding: 15px 5%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--main);
+  height: 94px;
+  padding: 15px 32px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 1000;
+  transition: top 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px); // Efeito moderno
+}
+
+/* Esconde navbar quando aplicamos .hidden-navbar */
+.hidden-navbar {
+  top: -110px;
 }
 
 .nav-bar .logo {
+  cursor: pointer;
   height: 100%;
 }
 
 .nav-bar img {
   height: 100%;
+  width: auto;
+  max-height: 64px;
 }
 
-.nav-bar .nav-links {
-  height: 100%;
-  padding: 0;
+/* Carrinho */
+.cart-container {
+  width: 32px;
+  height: 32px;
+}
+
+.cart-icon {
+  cursor: pointer;
+  transition: fill 0.3s ease-in-out;
+  fill: #333333;
+}
+
+.cart-icon:hover {
+  fill: #ffffff;
+}
+
+/* Campo de pesquisa */
+.input-container {
+  position: relative;
   display: flex;
   align-items: center;
+  max-width: 720px;
+  flex-grow: 1;
+  margin: 0 24px;
 }
 
-.nav-bar .nav-links ul {
-  text-decoration: none;
-  list-style: none;
-  display: flex;
-  gap: 32px;
+.search-bar {
+  width: 100%;
+  padding: 10px 12px 10px 40px;
+  border: 1px solid #cccccc;
+  border-radius: 16px;
+  font-size: 14px;
+  background-color: #fff;
+  transition: border-color 0.3s ease-in-out;
 }
 
-.nav-bar .nav-links ul li a {
-  text-decoration: none;
-  color: white;
-  font-size: 20px;
-  position: relative; /* Necessário para o posicionamento do pseudo-elemento */
+.search-bar:focus {
+  border-color: var(--main-secondary);
+  outline: none;
 }
 
-.nav-bar .nav-links ul li a::after {
-  content: "";
+.input-icon {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: white;
-  transition: width 0.3s ease; /* Animação suave */
+  left: 12px;
+  width: 20px;
+  height: 20px;
+  fill: #666666;
+  pointer-events: none;
 }
 
-.nav-bar .nav-links ul li a:hover::after {
-  width: 100%; /* Expande a largura do sublinhado */
+/* Responsividade */
+@media (max-width: 768px) {
+  .nav-bar {
+    padding: 15px 20px;
+    flex-direction: column;
+    height: auto;
+    gap: 8px;
+  }
+
+  .input-container {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .search-bar {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-bar {
+    font-size: 14px;
+  }
+
+  .cart-container {
+    align-self: flex-end;
+  }
 }

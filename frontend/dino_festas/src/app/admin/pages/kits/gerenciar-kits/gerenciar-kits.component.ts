@@ -24,6 +24,7 @@ export class GerenciarKitsComponent {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.query = params['query'] || '';
+      console.log(this.query);
 
       this.kitService.getKits(this.query).subscribe((res) => {
         this.kits = [...res];
@@ -32,7 +33,7 @@ export class GerenciarKitsComponent {
   }
 
   onSubmit(form: NgForm) {
-    this.router.navigate(['admin/kits'], {
+    this.router.navigate(['admin/pacotes'], {
       queryParams: { query: this.query },
     });
   }

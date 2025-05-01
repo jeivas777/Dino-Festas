@@ -1,4 +1,4 @@
-<h1>Editar Item</h1>
+<h1>Editar item</h1>
 <div class="search-container">
   <form
     class="login-form"
@@ -7,7 +7,7 @@
     (ngSubmit)="onSubmit(searchForm)"
   >
     <div class="form-field-container">
-      <label class="label" for="">Nome</label>
+      <label class="label" for="nome">Nome</label>
       <input
         class="input"
         name="nome"
@@ -23,14 +23,87 @@
     </div>
 
     <div class="form-field-container">
-      <label class="label" for="">Imagens</label>
+      <label class="label" for="categoria">Categoria</label>
+      <select
+        class="input"
+        name="categoria"
+        id="categoria"
+        required
+        [(ngModel)]="categoria"
+        #categoriaRef="ngModel"
+      >
+        <option value="" disabled selected>Selecione uma categoria</option>
+        <option
+          *ngFor="let categoria of categoriasDisponiveis"
+          [value]="categoria"
+        >
+          {{ categoria }}
+        </option>
+      </select>
+      <app-error-message
+        [control]="categoriaRef"
+        fieldName="categoria"
+      ></app-error-message>
+    </div>
+
+    <div class="form-field-container">
+      <label class="label" for="codigo">Código</label>
+      <input
+        class="input"
+        name="codigo"
+        id="codigo"
+        type="number"
+        required
+        [(ngModel)]="codigo"
+        #codigoRef="ngModel"
+      />
+      <app-error-message
+        [control]="codigoRef"
+        fieldName="codigo"
+      ></app-error-message>
+    </div>
+
+    <div class="form-field-container">
+      <label class="label" for="valor">Valor</label>
+      <input
+        class="input"
+        name="valor"
+        id="valor"
+        required
+        type="number"
+        [(ngModel)]="valor"
+        #valorRef="ngModel"
+      />
+      <app-error-message
+        [control]="valorRef"
+        fieldName="valor"
+      ></app-error-message>
+    </div>
+
+    <div class="form-field-container">
+      <label class="label" for="valor">Tema</label>
+      <input
+        class="input"
+        name="tema"
+        id="tema"
+        required
+        [(ngModel)]="tema"
+        #temaRef="ngModel"
+      />
+      <app-error-message
+        [control]="temaRef"
+        fieldName="tema"
+      ></app-error-message>
+    </div>
+
+    <div class="form-field-container">
+      <label class="label" for="imagens">Imagens</label>
       <input
         class="input"
         name="imagens"
         id="imagens"
         type="file"
         accept="image/*"
-        required
         multiple
         (change)="onFileSelected($event)"
         [(ngModel)]="imagens"
@@ -43,8 +116,9 @@
     </div>
 
     <div></div>
+
     <div class="button-container">
-      <button type="button" class="cadastrar" [routerLink]="['/admin/kits']">
+      <button type="button" class="cadastrar" [routerLink]="['/admin/itens']">
         Cancelar
       </button>
       <button type="submit" class="pesquisar">Editar</button>
@@ -54,5 +128,5 @@
 
 <app-sucess-popup
   [show]="showSucess"
-  message="Kit editado com sucesso!"
+  message="Item criado com sucesso!"
 ></app-sucess-popup>

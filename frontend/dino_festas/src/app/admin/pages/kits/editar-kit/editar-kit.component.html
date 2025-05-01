@@ -1,5 +1,6 @@
-<h1>Editar kit</h1>
+<h1>Editar Kit</h1>
 <h2 *ngIf="kit">{{ kit.nome }} #{{ kit.id }}</h2>
+
 <div class="search-container">
   <form
     class="login-form"
@@ -8,7 +9,7 @@
     (ngSubmit)="onSubmit(searchForm)"
   >
     <div class="form-field-container">
-      <label class="label" for="">Nome</label>
+      <label for="nome">Nome</label>
       <input
         class="input"
         name="nome"
@@ -24,31 +25,84 @@
     </div>
 
     <div class="form-field-container">
-      <label class="label" for="">Imagens</label>
+      <label for="valor">Valor</label>
+      <input
+        class="input"
+        name="valor"
+        id="valor"
+        required
+        type="number"
+        [(ngModel)]="valor"
+        #valorRef="ngModel"
+      />
+      <app-error-message
+        [control]="valorRef"
+        fieldName="valor"
+      ></app-error-message>
+    </div>
+
+    <div class="categorias-container">
+      <label>Categorias</label>
+
+      <div
+        *ngFor="let categoria of categorias; let i = index"
+        class="categoria-item"
+      >
+        <select
+          class="input"
+          name="categoria{{ i }}"
+          id="categoria{{ i }}"
+          required
+          [(ngModel)]="categoria.nome"
+          #categoriaRef="ngModel"
+        >
+          <option value="" disabled>Selecione uma categoria</option>
+          <option
+            *ngFor="let categoriaDisponivel of categoriasDisponiveis"
+            [value]="categoriaDisponivel.nome"
+          >
+            {{ categoriaDisponivel.nome }}
+          </option>
+        </select>
+
+        <input
+          class="input"
+          name="categoriaQuantidade{{ i }}"
+          placeholder="Quantidade"
+          type="number"
+          [(ngModel)]="categoria.quantidade"
+          required
+        />
+        <button type="button" (click)="removeCategoria(i)">Remover</button>
+      </div>
+
+      <button
+        type="button"
+        class="add-categoria-button"
+        (click)="addCategoria()"
+      >
+        Adicionar Categoria
+      </button>
+    </div>
+
+    <div class="form-field-container">
+      <label for="imagens">Imagens</label>
       <input
         class="input"
         name="imagens"
         id="imagens"
         type="file"
         accept="image/*"
-        required
         multiple
         (change)="onFileSelected($event)"
-        [(ngModel)]="imagens"
-        #imagensRef="ngModel"
       />
-      <app-error-message
-        [control]="imagensRef"
-        fieldName="imagens"
-      ></app-error-message>
     </div>
 
-    <div></div>
     <div class="button-container">
-      <button type="button" class="cadastrar" [routerLink]="['/admin/kits']">
+      <button type="button" class="cadastrar" [routerLink]="['/admin/pacotes']">
         Cancelar
       </button>
-      <button type="submit" class="pesquisar">Editar</button>
+      <button type="submit" class="pesquisar">Salvar Alterações</button>
     </div>
   </form>
 </div>

@@ -1,10 +1,11 @@
 <div class="kit-card">
-  <div class="image-container">
-    <img [src]="mainImage" alt="" />
+  <div class="content-container">
+    <div class="image-container"><img [src]="mainImage" alt="" /></div>
+
     <h2>{{ item.nome }}</h2>
   </div>
   <div class="buttons-container">
-    <button class="editar" [routerLink]="['/admin/kits/editar', item.id]">
+    <button class="editar" [routerLink]="['/admin/itens', item.id, 'editar']">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24px"
@@ -37,7 +38,7 @@
   [show]="showModal"
   title="Excluir item"
   message="Tem certeza que deseja excluir este item?"
-  (confirm)="deleteKit(item.id!)"
+  (confirm)="deleteItem(item.id!)"
   (cancel)="cancelarAcao()"
 >
 </app-modal-confirmacao>

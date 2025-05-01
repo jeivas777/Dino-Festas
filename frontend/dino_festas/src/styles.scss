@@ -1,9 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 
+/* Aplica box-sizing a todos os elementos */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   --primary-color: #007bff;
   --secondary-color: #f6a532;
-  --apoio: #ec268f;
+  --apoio: #ffc8dd;
+  --main: #ffafcc;
+  --main-secondary: #a2d2ff;
+  --main-terciary: #4caf50;
 }
 
 html,
@@ -47,4 +57,12 @@ p {
 a {
   text-decoration: none;
   color: white;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  color: var(--main-secondary);
 }

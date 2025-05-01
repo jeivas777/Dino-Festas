@@ -1,5 +1,4 @@
 <h1>Gerenciar itens</h1>
-<h2 *ngIf="kit">{{ kit.nome }} #{{ kit.id }}</h2>
 <div class="search-container">
   <form
     class="search-form"
@@ -20,11 +19,7 @@
     </div>
 
     <div class="button-container">
-      <div class="button-container">
-        <button type="button" class="cadastrar" [routerLink]="['/admin/kits']">
-          Voltar
-        </button>
-      </div>
+      <div class="button-container"></div>
       <button type="button" class="cadastrar" [routerLink]="['cadastrar']">
         Cadastrar
       </button>
@@ -36,9 +31,19 @@
 <h2>Resultados</h2>
 
 <div class="items-container" *ngIf="itens.length > 0; else noResults">
-  <app-item-card *ngFor="let item of itens" [item]="item"></app-item-card>
+  <app-item-card
+    *ngFor="let item of itens"
+    [item]="item"
+    (deleted)="removeItem($event)"
+  ></app-item-card>
 </div>
-<!-- (deleted)="removeItem($event)" -->
+
+<app-pagination
+  *ngIf="itens && itens.length > 0"
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  (pageChange)="onPageChange($event)"
+></app-pagination>
 
 <ng-template #noResults>
   <h2 class="nenhum-item-encontrado">Nenhum item encontrado :(</h2>

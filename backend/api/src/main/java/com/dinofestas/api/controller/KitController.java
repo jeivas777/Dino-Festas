@@ -26,8 +26,6 @@ public class KitController {
 
     @GetMapping
     public List<Kit> listarTodos(@RequestParam(required = false) String query) {
-        System.out.println("Query recebida: " + query);
-
         return kitService.listarTodos(query);
     }
 
