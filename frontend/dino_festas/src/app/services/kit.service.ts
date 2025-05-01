@@ -16,7 +16,7 @@ export interface Kit {
   providedIn: 'root',
 })
 export class KitService {
-  private baseEndpoint = 'http://localhost:8080/api/kits';
+  private baseEndpoint = 'https://dino-festas.onrender.com/api/kits';
 
   constructor(private http: HttpClient) {}
 
