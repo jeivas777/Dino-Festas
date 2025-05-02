@@ -22,29 +22,16 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column; /* Organiza o conteúdo de forma vertical */
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-router-outlet {
-  flex-grow: 1; /* Faz com que o conteúdo ocupe o espaço restante */
-}
-
-body {
-  display: flex;
-  flex-direction: column; /* Para empurrar o rodapé para baixo */
-  flex: 1; /* Faz com que o body ocupe o máximo de altura disponível */
-}
-
-.footer {
+footer {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: var(--main);
   height: 120px;
-  margin-top: auto; /* Isso empurra o footer para o fundo */
 }
 
 h1 {
