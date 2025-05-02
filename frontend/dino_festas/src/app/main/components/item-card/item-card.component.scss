@@ -46,3 +46,9 @@
   cursor: pointer;
   align-self: flex-end;
 }
+
+@media (max-width: 680px) {
+  .item-card {
+    width: 200px;
+  }
+}
