@@ -14,8 +14,9 @@ public class ItemService {
     private final S3Service s3Service;
     private final ItemRepository itemRepository;
 
-    public ItemService(ItemRepository itemRepository) {
+    public ItemService(ItemRepository itemRepository, S3Service s3Service) {
         this.itemRepository = itemRepository;
+        this.s3Service = s3Service;
     }
 
     public Page<Item> listarTodos(String query, Pageable pageable) {
