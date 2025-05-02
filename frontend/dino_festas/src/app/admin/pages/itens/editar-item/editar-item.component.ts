@@ -7,6 +7,7 @@ import { ErrorMessageComponent } from '../../../../layout/messages/error-message
 import { Kit, KitService } from '../../../../services/kit.service';
 import { Item, ItemService } from '../../../../services/item.service';
 import { LoadingSpinnerComponent } from '../../../../layout/loading-spinner/loading-spinner.component';
+import { CategoriasService } from '../../../../services/categorias.service';
 
 @Component({
   selector: 'app-editar-item',
@@ -44,7 +45,8 @@ export class EditarItemComponent {
     private itemService: ItemService,
     private kitService: KitService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private categorias: CategoriasService
   ) {}
 
   ngOnInit(): void {
@@ -59,23 +61,19 @@ export class EditarItemComponent {
       this.codigo = item.codigo;
       this.valor = item.valor;
       this.tema = item.tema;
+      this.loading = false;
     });
 
     this.carregarCategoriasDisponiveis();
-    this.loading = false;
   }
 
   carregarCategoriasDisponiveis() {
     const categoriasSet = new Set<string>();
 
-    // Percorre os kits e adiciona as categorias únicas no Set
-    this.kitService.getKits().subscribe((kits) => {
-      kits.forEach((kit) => {
-        kit.categorias.forEach((categoria) => {
-          categoriasSet.add(categoria.nome); // Adiciona o nome da categoria no Set
-        });
-      });
-      this.categoriasDisponiveis = [...categoriasSet]; // Atualiza a lista de categorias
+    this.categorias.getCategorias().subscribe((res) => {
+      res.forEach((el: any) => categoriasSet.add(el.nome));
+
+      this.categoriasDisponiveis = [...categoriasSet];
     });
   }
 

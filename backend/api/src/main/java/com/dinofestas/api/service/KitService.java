@@ -11,9 +11,11 @@ import java.util.Optional;
 public class KitService {
 
     private final KitRepository kitRepository;
+    private final S3Service s3Service;
 
-    public KitService(KitRepository kitRepository) {
+    public KitService(KitRepository kitRepository, S3Service s3Service) {
         this.kitRepository = kitRepository;
+        this.s3Service = s3Service;
     }
 
     public List<Kit> listarTodos(String query) {
@@ -32,11 +34,19 @@ public class KitService {
     }
 
     public void excluir(Long id) {
+        // Find the item by its ID
+        Kit kit = kitRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
+        // Get the filename or key of the image to delete from S3
+        String imageUrl = kit.getImagens().get(0);
+        String filename = imageUrl.replace("https://" + s3Service.getBucketName() + ".s3.amazonaws.com/", "");
+
+        // Delete the image from S3
+        s3Service.deleteFile(filename);
+        
         kitRepository.deleteById(id);
     }
 
     public Kit atualizar(Long id, Kit kitAtualizado) {
-        System.out.println("ID do kit " + id);
         return kitRepository.findById(id)
         .map(kit -> {
             kit.setNome(kitAtualizado.getNome());
