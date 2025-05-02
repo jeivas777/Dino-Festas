@@ -39,7 +39,7 @@ public class ItemService {
         Item item = itemRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
 
         // Get the filename or key of the image to delete from S3
-        String imageUrl = item.getImagens().get(0); // Assuming the URL is saved in the item, or you have the key in a field
+        String imageUrl = item.getImagens().get(0);
         String filename = imageUrl.replace("https://" + s3Service.getBucketName() + ".s3.amazonaws.com/", "");
 
         // Delete the image from S3
@@ -52,6 +52,13 @@ public class ItemService {
     public Item atualizar(Long id, Item itemAtualizado) {
         return itemRepository.findById(id)
                 .map(item -> {
+                    // Get the filename or key of the image to delete from S3
+                    String imageUrl = item.getImagens().get(0);
+                    String filename = imageUrl.replace("https://" + s3Service.getBucketName() + ".s3.amazonaws.com/", "");
+        
+                    // Delete the image from S3
+                    s3Service.deleteFile(filename);
+                    
                     item.setNome(itemAtualizado.getNome());
                     item.setValor(itemAtualizado.getValor());
                     item.setImagens(itemAtualizado.getImagens());
