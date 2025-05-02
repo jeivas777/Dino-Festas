@@ -145,3 +145,9 @@
 .placeholder {
   min-block-size: 100vh;
 }
+
+@media (max-width: 680px) {
+  .stepper-container {
+    gap: 16px;
+  }
+}

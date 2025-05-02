@@ -111,6 +111,8 @@
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  border-bottom: 1px solid #dddddd;
+  margin-bottom: 16px;
 }
 
 .cart-header svg {
@@ -119,4 +121,10 @@
 
 .cart-item svg {
   cursor: pointer;
+}
+
+@media (max-width: 680px) {
+  .cart-container {
+    width: 80%;
+  }
 }
