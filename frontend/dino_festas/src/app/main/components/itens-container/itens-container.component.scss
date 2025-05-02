@@ -1,5 +1,6 @@
 .itens-container {
   width: 100%;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   padding: 50px 0;
@@ -17,4 +18,8 @@ button {
   background-color: #f0f0f0; /* Cor de fundo para itens selecionados */
   border: 2px solid var(--main-terciary); /* Borda azul para destacar o item selecionado */
   box-shadow: 0 0 10px var(--main-terciary); /* Sombra para efeito visual */
+}
+
+.text-container {
+  min-height: 100vh;
 }

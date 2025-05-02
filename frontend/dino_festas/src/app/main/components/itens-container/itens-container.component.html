@@ -1,4 +1,4 @@
-<div class="itens-container">
+<div class="itens-container" *ngIf="itens.length > 0; else noResults">
   <div
     *ngFor="let item of itens"
     (click)="onItemClick(item)"
@@ -16,3 +16,9 @@
 </app-pagination>
 
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+<ng-template #noResults>
+  <div class="text-container">
+    <h2 class="nenhum-item-encontrado">Nenhum item encontrado :(</h2>
+  </div>
+</ng-template>
