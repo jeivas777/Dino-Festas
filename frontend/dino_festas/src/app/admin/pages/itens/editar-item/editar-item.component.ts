@@ -6,6 +6,7 @@ import { SucessPopupComponent } from '../../../../layout/messages/sucess-popup/s
 import { ErrorMessageComponent } from '../../../../layout/messages/error-message/error-message.component';
 import { Kit, KitService } from '../../../../services/kit.service';
 import { Item, ItemService } from '../../../../services/item.service';
+import { LoadingSpinnerComponent } from '../../../../layout/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-editar-item',
@@ -15,6 +16,7 @@ import { Item, ItemService } from '../../../../services/item.service';
     SucessPopupComponent,
     ErrorMessageComponent,
     CommonModule,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './editar-item.component.html',
   styleUrl: './editar-item.component.scss',
@@ -25,6 +27,7 @@ export class EditarItemComponent {
   tema: string = '';
   codigo: number = 0;
   valor: number = 0;
+  loading: boolean = false;
 
   imagens: string[] = []; // Array de URLs de imagens
   categoriasDisponiveis: string[] = [];
@@ -47,7 +50,7 @@ export class EditarItemComponent {
   ngOnInit(): void {
     const itemId = +this.route.snapshot.paramMap.get('id')!;
 
-    console.log(itemId);
+    this.loading = true;
 
     this.itemService.getItem(itemId).subscribe((item) => {
       this.item = item;
@@ -59,6 +62,7 @@ export class EditarItemComponent {
     });
 
     this.carregarCategoriasDisponiveis();
+    this.loading = false;
   }
 
   carregarCategoriasDisponiveis() {
@@ -77,6 +81,7 @@ export class EditarItemComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
+      this.loading = true;
       if (this.selectedFiles.length > 0) {
         this.kitService
           .uploadImages(this.selectedFiles)
@@ -93,10 +98,11 @@ export class EditarItemComponent {
             this.itemService
               .updateItem(this.item.id!, item)
               .subscribe((res) => {
+                this.loading = false;
                 this.showSucess = true; // Exibe o popup de sucesso
                 setTimeout(() => {
                   this.router.navigate(['/admin/itens']);
-                }, 2000);
+                }, 1000);
               });
           });
       } else {
@@ -110,7 +116,11 @@ export class EditarItemComponent {
         };
 
         this.itemService.updateItem(this.item.id!, item).subscribe((res) => {
+          this.loading = false;
           this.showSucess = true; // Exibe o popup de sucesso
+          setTimeout(() => {
+            this.router.navigate(['/admin/itens']);
+          }, 1000);
         });
       }
     } else {

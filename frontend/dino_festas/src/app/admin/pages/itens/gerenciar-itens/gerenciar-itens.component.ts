@@ -1,12 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { KitCardComponent } from '../../../components/kit-card/kit-card.component';
 import { ItemCardComponent } from '../../../components/item-card/item-card.component';
-import { Kit, KitService } from '../../../../services/kit.service';
-import { CommonModule } from '@angular/common';
 import { Item, ItemService } from '../../../../services/item.service';
+import { CommonModule } from '@angular/common';
 import { PaginationComponent } from '../../../../main/components/pagination/pagination.component';
+import { LoadingSpinnerComponent } from '../../../../layout/loading-spinner/loading-spinner.component'; // Import the loading spinner
 
 @Component({
   selector: 'app-gerenciar-itens',
@@ -16,16 +15,17 @@ import { PaginationComponent } from '../../../../main/components/pagination/pagi
     ItemCardComponent,
     CommonModule,
     PaginationComponent,
+    LoadingSpinnerComponent, // Import the loading spinner component
   ],
   templateUrl: './gerenciar-itens.component.html',
-  styleUrl: './gerenciar-itens.component.scss',
+  styleUrls: ['./gerenciar-itens.component.scss'],
 })
 export class GerenciarItensComponent {
-  itens: Item[] = []; // Array de itens que pertencem ao kit
-  searchedItens: Item[] = []; // Array de itens que pertencem ao kit
-  query: string = '';
-  totalPages: number = 0;
-  currentPage: number = 0;
+  itens: Item[] = []; // Array de itens
+  query: string = ''; // Search query
+  totalPages: number = 0; // Total pages for pagination
+  currentPage: number = 0; // Current page number
+  loading: boolean = false; // Flag for loading state
 
   constructor(
     private itemService: ItemService,
@@ -41,10 +41,12 @@ export class GerenciarItensComponent {
   }
 
   loadItems(query: string = '', page: number = 0): void {
+    this.loading = true; // Start loading
     this.itemService.getItems(query, page).subscribe((res) => {
       this.itens = res.content;
       this.totalPages = res.totalPages;
       this.currentPage = res.number;
+      this.loading = false; // End loading once data is fetched
     });
   }
 

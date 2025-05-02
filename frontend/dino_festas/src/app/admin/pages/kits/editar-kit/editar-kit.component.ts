@@ -82,7 +82,7 @@ export class EditarKitComponent {
               this.showSucess = true;
               setTimeout(() => {
                 this.router.navigate(['/admin/pacotes']);
-              }, 2000);
+              }, 1000);
             });
           });
       } else {

@@ -11,6 +11,7 @@ import java.util.Optional;
 @Service
 public class ItemService {
 
+    private final S3Service s3Service;
     private final ItemRepository itemRepository;
 
     public ItemService(ItemRepository itemRepository) {
@@ -33,7 +34,18 @@ public class ItemService {
     }
 
     public void excluir(Long id) {
-        itemRepository.deleteById(id);
+        // Find the item by its ID
+        Item item = itemRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
+
+        // Get the filename or key of the image to delete from S3
+        String imageUrl = item.getImagens().get(0); // Assuming the URL is saved in the item, or you have the key in a field
+        String filename = imageUrl.replace("https://" + s3Service.getBucketName() + ".s3.amazonaws.com/", "");
+
+        // Delete the image from S3
+        s3Service.deleteFile(filename);
+
+        // Then, delete the item from the database
+        itemRepository.delete(item);
     }
 
     public Item atualizar(Long id, Item itemAtualizado) {

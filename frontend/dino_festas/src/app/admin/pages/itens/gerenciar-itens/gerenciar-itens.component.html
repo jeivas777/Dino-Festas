@@ -19,7 +19,6 @@
     </div>
 
     <div class="button-container">
-      <div class="button-container"></div>
       <button type="button" class="cadastrar" [routerLink]="['cadastrar']">
         Cadastrar
       </button>
@@ -30,7 +29,13 @@
 
 <h2>Resultados</h2>
 
-<div class="items-container" *ngIf="itens.length > 0; else noResults">
+<!-- Show loading spinner while fetching data -->
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>
+
+<div
+  class="items-container"
+  *ngIf="!loading && itens.length > 0; else noResults"
+>
   <app-item-card
     *ngFor="let item of itens"
     [item]="item"
@@ -39,7 +44,7 @@
 </div>
 
 <app-pagination
-  *ngIf="itens && itens.length > 0"
+  *ngIf="!loading && itens && itens.length > 0"
   [totalPages]="totalPages"
   [currentPage]="currentPage"
   (pageChange)="onPageChange($event)"

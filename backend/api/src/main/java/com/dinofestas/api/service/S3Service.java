@@ -7,6 +7,7 @@ import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
@@ -44,5 +45,17 @@ public class S3Service {
                 software.amazon.awssdk.core.sync.RequestBody.fromBytes(file.getBytes()));
 
         return "https://" + bucketName + ".s3.amazonaws.com/" + filename;
+    }
+
+        // Method to delete a file from S3 bucket
+    public void deleteFile(String filename) {
+        s3Client.deleteObject(DeleteObjectRequest.builder()
+                .bucket(bucketName)
+                .key(filename)
+                .build());
+    }
+
+    public String getBucketName(){
+        return this.bucketName;
     }
 }
