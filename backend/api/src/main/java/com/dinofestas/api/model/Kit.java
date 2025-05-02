@@ -28,15 +28,6 @@ public class Kit {
     private Double valor;
 
 
-    public List<String> getImagens() {
-        return imagens;
-    }
-
-    public void setImagens(List<String> imagens) {
-        this.imagens = imagens;
-    }
-// A classe Kit não precisa de um relacionamento explícito com Categoria
-
     // Construtor padrão
     public Kit() {}
 
@@ -77,5 +68,13 @@ public class Kit {
 
     public void setValor(Double valor) {
         this.valor = valor;
+    }
+
+    public List<String> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(List<String> imagens) {
+        this.imagens = imagens;
     }
 }
