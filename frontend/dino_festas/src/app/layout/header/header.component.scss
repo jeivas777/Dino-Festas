@@ -87,8 +87,7 @@
 /* Responsividade */
 @media (max-width: 768px) {
   .nav-bar {
-    padding: 15px 20px;
-    flex-direction: column;
+    padding: 0;
     height: auto;
     gap: 8px;
   }
@@ -107,9 +106,5 @@
 @media (max-width: 480px) {
   .search-bar {
     font-size: 14px;
-  }
-
-  .cart-container {
-    align-self: flex-end;
   }
 }
