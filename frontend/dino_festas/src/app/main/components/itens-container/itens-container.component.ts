@@ -46,7 +46,9 @@ export class ItensContainerComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.loadItems();
+    if (this.nomeCategoria || this.searchQuery) {
+      this.loadItems(); // Chama o método apenas quando necessário
+    }
   }
 
   loadItems(page: number = 0) {
@@ -86,7 +88,10 @@ export class ItensContainerComponent implements OnChanges {
   }
 
   onPageChange(page: number) {
-    this.loadItems(page);
+    if (this.currentPage !== page) {
+      this.currentPage = page;
+      this.loadItems(page); // Chamado apenas quando a página mudar
+    }
   }
 
   onItemClick(item: Item) {
