@@ -10,11 +10,17 @@ import { Item, ItemService } from '../../../services/item.service';
 import { ItemCardComponent } from '../item-card/item-card.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { ActivatedRoute } from '@angular/router';
+import { LoadingSpinnerComponent } from '../../../layout/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-itens-container',
   standalone: true,
-  imports: [ItemCardComponent, CommonModule, PaginationComponent],
+  imports: [
+    ItemCardComponent,
+    CommonModule,
+    PaginationComponent,
+    LoadingSpinnerComponent,
+  ],
   templateUrl: './itens-container.component.html',
   styleUrls: ['./itens-container.component.scss'],
 })
@@ -28,6 +34,7 @@ export class ItensContainerComponent implements OnChanges {
   itens: Item[] = [];
   totalPages: number = 0;
   currentPage: number = 0;
+  loading: boolean = false;
 
   constructor(
     private itemService: ItemService,
@@ -43,6 +50,7 @@ export class ItensContainerComponent implements OnChanges {
   }
 
   loadItems(page: number = 0) {
+    this.loading = true;
     this.route.queryParamMap.subscribe((params) => {
       this.searchQuery = params.get('q')!; // Obtém o valor do parâmetro 'q'
 
@@ -72,6 +80,7 @@ export class ItensContainerComponent implements OnChanges {
           const startIndex = page * itemsPerPage;
           const endIndex = startIndex + itemsPerPage;
           this.itens = filteredItems.slice(startIndex, endIndex); // Exibe apenas os itens da página atual
+          this.loading = false;
         });
     });
   }
