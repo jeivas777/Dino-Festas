@@ -7,6 +7,7 @@ import { SucessPopupComponent } from '../../../../layout/messages/sucess-popup/s
 import { ErrorMessageComponent } from '../../../../layout/messages/error-message/error-message.component';
 import { CommonModule } from '@angular/common';
 import { CategoriasService } from '../../../../services/categorias.service';
+import { LoadingSpinnerComponent } from '../../../../layout/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-cadastrar-item',
@@ -16,6 +17,7 @@ import { CategoriasService } from '../../../../services/categorias.service';
     SucessPopupComponent,
     ErrorMessageComponent,
     CommonModule,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './cadastrar-item.component.html',
   styleUrl: './cadastrar-item.component.scss',
@@ -30,6 +32,7 @@ export class CadastrarItemComponent {
   itens: Item[] = [];
   selectedFiles: File[] = [];
   showSucess: boolean = false;
+  loading: boolean = false;
 
   kit!: Kit;
   categoriasDisponiveis: string[] = [];
@@ -58,6 +61,7 @@ export class CadastrarItemComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
+      this.loading = true;
       this.kitService
         .uploadImages(this.selectedFiles)
         .subscribe((urls: string[]) => {
@@ -71,10 +75,11 @@ export class CadastrarItemComponent {
           };
 
           this.itemService.createItem(item).subscribe((res) => {
+            this.loading = false;
             this.showSucess = true;
             setTimeout(() => {
               this.router.navigate(['/admin/itens']);
-            }, 2000);
+            }, 1000);
           });
         });
     } else {

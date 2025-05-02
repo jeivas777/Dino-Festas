@@ -4,16 +4,24 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Kit, KitService } from '../../../../services/kit.service';
 import { KitCardComponent } from '../../../components/kit-card/kit-card.component';
 import { CommonModule } from '@angular/common';
+import { LoadingSpinnerComponent } from '../../../../layout/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-gerenciar-kits',
-  imports: [FormsModule, RouterModule, KitCardComponent, CommonModule],
+  imports: [
+    FormsModule,
+    RouterModule,
+    KitCardComponent,
+    CommonModule,
+    LoadingSpinnerComponent,
+  ],
   templateUrl: './gerenciar-kits.component.html',
   styleUrl: './gerenciar-kits.component.scss',
 })
 export class GerenciarKitsComponent {
   query: string = '';
   kits: Kit[] = []; // Array de kits
+  loading: boolean = false;
 
   constructor(
     private kitService: KitService,
@@ -22,12 +30,13 @@ export class GerenciarKitsComponent {
   ) {}
 
   ngOnInit(): void {
+    this.loading = true;
     this.route.queryParams.subscribe((params) => {
       this.query = params['query'] || '';
-      console.log(this.query);
 
       this.kitService.getKits(this.query).subscribe((res) => {
         this.kits = [...res];
+        this.loading = false;
       });
     });
   }

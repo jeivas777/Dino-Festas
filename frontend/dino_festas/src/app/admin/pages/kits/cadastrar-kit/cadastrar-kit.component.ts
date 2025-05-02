@@ -6,6 +6,7 @@ import { SucessPopupComponent } from '../../../../layout/messages/sucess-popup/s
 import { ErrorMessageComponent } from '../../../../layout/messages/error-message/error-message.component';
 import { CommonModule } from '@angular/common';
 import { CategoriasService } from '../../../../services/categorias.service';
+import { LoadingSpinnerComponent } from '../../../../layout/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-cadastrar-kit',
@@ -15,6 +16,7 @@ import { CategoriasService } from '../../../../services/categorias.service';
     SucessPopupComponent,
     ErrorMessageComponent,
     CommonModule,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './cadastrar-kit.component.html',
   styleUrl: './cadastrar-kit.component.scss',
@@ -27,6 +29,7 @@ export class CadastrarKitComponent {
   imagens: string[] = [];
   selectedFiles: File[] = [];
   showSucess: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private kitService: KitService,
@@ -51,6 +54,7 @@ export class CadastrarKitComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
+      this.loading = true;
       this.kitService
         .uploadImages(this.selectedFiles)
         .subscribe((urls: string[]) => {
@@ -65,9 +69,10 @@ export class CadastrarKitComponent {
             this.showSucess = true;
             form.resetForm();
             this.categorias = [];
+            this.loading = false;
             setTimeout(() => {
               this.router.navigate(['/admin/pacotes']);
-            }, 2000);
+            }, 1000);
           });
         });
     } else {

@@ -4,10 +4,17 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CategoriasService } from '../../../../services/categorias.service';
+import { LoadingSpinnerComponent } from '../../../../layout/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-gerenciar-categorias',
-  imports: [SucessPopupComponent, CommonModule, FormsModule, RouterModule],
+  imports: [
+    SucessPopupComponent,
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    LoadingSpinnerComponent,
+  ],
   templateUrl: './gerenciar-categorias.component.html',
   styleUrl: './gerenciar-categorias.component.scss',
 })
@@ -15,6 +22,7 @@ export class GerenciarCategoriasComponent {
   categorias: { nome: string }[] = [];
   categoriasOriginais: { nome: string }[] = [];
   showSucess: boolean = false;
+  loading: boolean = false;
 
   constructor(private categoriaService: CategoriasService) {}
 
@@ -23,9 +31,11 @@ export class GerenciarCategoriasComponent {
   }
 
   carregarCategorias() {
+    this.loading = true;
     this.categoriaService.getCategorias().subscribe((res) => {
-      this.categorias = [...res]; // copia para edição
-      this.categoriasOriginais = JSON.parse(JSON.stringify(res)); // cópia profunda para reverter depois
+      this.categorias = [...res];
+      this.categoriasOriginais = JSON.parse(JSON.stringify(res));
+      this.loading = false;
     });
   }
 
