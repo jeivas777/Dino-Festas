@@ -49,14 +49,17 @@ export class GerenciarCategoriasComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
+      this.loading = true;
       this.categoriaService
         .atualizarTodasCategorias(this.categorias)
         .subscribe({
           next: () => {
+            this.loading = false;
             this.showSucess = true;
             this.carregarCategorias(); // recarrega do servidor
           },
           error: (err) => {
+            this.loading = false;
             console.error('Erro ao salvar categorias', err);
           },
         });

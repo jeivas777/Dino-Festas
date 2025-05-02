@@ -6,6 +6,7 @@ import { SucessPopupComponent } from '../../../../layout/messages/sucess-popup/s
 import { ErrorMessageComponent } from '../../../../layout/messages/error-message/error-message.component';
 import { Kit, KitService } from '../../../../services/kit.service';
 import { CategoriasService } from '../../../../services/categorias.service';
+import { LoadingSpinnerComponent } from '../../../../layout/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-editar-kit',
@@ -15,6 +16,7 @@ import { CategoriasService } from '../../../../services/categorias.service';
     SucessPopupComponent,
     ErrorMessageComponent,
     CommonModule,
+    LoadingSpinnerComponent,
   ],
   templateUrl: './editar-kit.component.html',
   styleUrl: './editar-kit.component.scss',
@@ -29,6 +31,7 @@ export class EditarKitComponent {
   showSucess: boolean = false;
   kit!: Kit;
   kitId: number = 0;
+  loading: boolean = true;
 
   constructor(
     private kitService: KitService,
@@ -38,6 +41,7 @@ export class EditarKitComponent {
   ) {}
 
   ngOnInit(): void {
+    this.loading = true;
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.kitId = +idParam;
@@ -49,6 +53,7 @@ export class EditarKitComponent {
       this.imagens = kit.imagens;
       this.categorias = kit.categorias;
       this.kit = kit;
+      this.loading = false;
     });
 
     this.categoriasService.getCategorias().subscribe((res) => {
@@ -66,6 +71,7 @@ export class EditarKitComponent {
 
   onSubmit(form: NgForm) {
     if (form.valid) {
+      this.loading = true;
       const kitUpdate = {
         nome: this.nome,
         imagens: this.selectedFiles.length > 0 ? [] : this.imagens,
@@ -79,6 +85,7 @@ export class EditarKitComponent {
           .subscribe((urls: string[]) => {
             kitUpdate.imagens = urls;
             this.kitService.updateKit(this.kitId, kitUpdate).subscribe(() => {
+              this.loading = false;
               this.showSucess = true;
               setTimeout(() => {
                 this.router.navigate(['/admin/pacotes']);
@@ -87,6 +94,7 @@ export class EditarKitComponent {
           });
       } else {
         this.kitService.updateKit(this.kitId, kitUpdate).subscribe(() => {
+          this.loading = false;
           this.showSucess = true;
           setTimeout(() => {
             this.router.navigate(['/admin/pacotes']);
