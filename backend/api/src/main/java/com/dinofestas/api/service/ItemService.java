@@ -21,7 +21,8 @@ public class ItemService {
 
     public Page<Item> listarTodos(String query, Pageable pageable) {
         if (query != null && !query.trim().isEmpty()) {
-            return itemRepository.findByNomeContainingIgnoreCase(query, pageable);
+            // Alterando a busca para pesquisar no nome ou no tema
+            return itemRepository.findByNomeContainingIgnoreCaseOrTemaContainingIgnoreCase(query, query, pageable);
         }
         return itemRepository.findAll(pageable);
     }
@@ -56,6 +57,7 @@ public class ItemService {
                     item.setValor(itemAtualizado.getValor());
                     item.setImagens(itemAtualizado.getImagens());
                     item.setCategoria(itemAtualizado.getCategoria());
+                    item.setTema(itemAtualizado.getTema());
                     item.setCodigo(itemAtualizado.getCodigo());
                     return itemRepository.save(item);
                 }).orElseThrow(() -> new RuntimeException("Item não encontrado"));
