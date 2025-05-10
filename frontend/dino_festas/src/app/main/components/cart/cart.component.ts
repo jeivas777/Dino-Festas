@@ -36,7 +36,7 @@ export class CartComponent {
 
   finalizePurchase() {
     const message = this.buildWhatsAppMessage(this.cartProducts);
-    const phoneNumber = '556130520001'; // Número no formato internacional (sem espaços, parênteses ou traços)
+    const phoneNumber = '556191765843'; // Número no formato internacional (sem espaços, parênteses ou traços)
     const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
       message
     )}`;
