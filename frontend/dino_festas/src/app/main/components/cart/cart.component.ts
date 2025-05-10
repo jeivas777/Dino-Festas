@@ -34,10 +34,12 @@ export class CartComponent {
     this.cartService.removeFromCart(product);
   }
 
-  // Função para finalizar a compra
   finalizePurchase() {
     const message = this.buildWhatsAppMessage(this.cartProducts);
-    const whatsappLink = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    const phoneNumber = '556130520001'; // Número no formato internacional (sem espaços, parênteses ou traços)
+    const whatsappLink = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(
+      message
+    )}`;
 
     window.open(whatsappLink, '_blank');
   }
