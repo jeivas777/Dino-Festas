@@ -27,11 +27,13 @@
 @media (max-width: 680px) {
   .itens-container {
     gap: 16px;
+    grid-template-columns: repeat(2, 1fr); /* Força 2 colunas */
   }
 }
 
 @media (max-width: 420px) {
   .itens-container {
     gap: 8px;
+    grid-template-columns: repeat(2, 1fr); /* Força 2 colunas */
   }
 }

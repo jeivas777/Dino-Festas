@@ -35,3 +35,20 @@ span {
   color: #333;
   font-weight: 500;
 }
+
+.pagination select {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 14px;
+  background-color: white;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  min-width: 140px;
+}
+
+.pagination select:hover,
+.pagination select:focus {
+  border-color: #007bff;
+  outline: none;
+}

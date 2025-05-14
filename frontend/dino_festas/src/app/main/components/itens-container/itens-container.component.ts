@@ -40,6 +40,8 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
   itens: Item[] = [];
   totalPages: number = 0;
   currentPage: number = 0;
+  itemsPerPage: number = 50;
+
   loading: boolean = false;
   isPacotePage: boolean = false;
 
@@ -87,12 +89,11 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
             filteredItems = pageData.content;
           }
 
-          const itemsPerPage = 100;
-          this.totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+          this.totalPages = Math.ceil(filteredItems.length / this.itemsPerPage);
           this.currentPage = page;
 
-          const startIndex = page * itemsPerPage;
-          const endIndex = startIndex + itemsPerPage;
+          const startIndex = page * this.itemsPerPage;
+          const endIndex = startIndex + this.itemsPerPage;
           this.itens = filteredItems.slice(startIndex, endIndex);
           this.loading = false;
         });
@@ -150,5 +151,10 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
 
   eventChamad(item: Number): void {
     console.log('Evento chamado');
+  }
+
+  onItemsPerPageChange(newItemsPerPage: number) {
+    this.itemsPerPage = newItemsPerPage;
+    this.loadItems(0); // reinicia na página 0
   }
 }

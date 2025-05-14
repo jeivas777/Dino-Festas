@@ -19,9 +19,10 @@
 <app-pagination
   [totalPages]="totalPages"
   [currentPage]="currentPage"
+  [itemsPerPage]="itemsPerPage"
   (pageChange)="onPageChange($event)"
->
-</app-pagination>
+  (itemsPerPageChange)="onItemsPerPageChange($event)"
+></app-pagination>
 
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 

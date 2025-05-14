@@ -12,4 +12,13 @@
   >
     Próxima
   </button>
+
+  <select
+    [(ngModel)]="itemsPerPage"
+    (ngModelChange)="onItemsPerPageChange($event)"
+  >
+    <option *ngFor="let option of itemsPerPageOptions" [value]="option">
+      {{ option }} por página
+    </option>
+  </select>
 </div>
