@@ -1,18 +1,26 @@
+<<<<<<< HEAD
 <div
   #itensContainer
   class="itens-container"
   [ngClass]="{ 'pacote-page': isPacotePage }"
   *ngIf="itens.length > 0; else noResults"
 >
+=======
+<div class="itens-container" *ngIf="itens.length > 0; else noResults">
+>>>>>>> bbdc2e88d698ed245342a75f75bd19e55d544fc6
   <div
     *ngFor="let item of itens"
     (click)="onItemClick(item)"
     [ngClass]="{ selected: isSelected(item) }"
   >
+<<<<<<< HEAD
     <app-item-card
       [item]="item"
       (addToCartEvent)="addToCart(item)"
     ></app-item-card>
+=======
+    <app-item-card [item]="item"></app-item-card>
+>>>>>>> bbdc2e88d698ed245342a75f75bd19e55d544fc6
   </div>
 </div>
 
@@ -30,6 +38,7 @@
     <h2 class="nenhum-item-encontrado">Nenhum item encontrado :(</h2>
   </div>
 </ng-template>
+<<<<<<< HEAD
 
 <div
   class="toast-container position-fixed bottom-0 end-0 p-3"
@@ -57,3 +66,5 @@
     </div>
   </div>
 </div>
+=======
+>>>>>>> bbdc2e88d698ed245342a75f75bd19e55d544fc6
