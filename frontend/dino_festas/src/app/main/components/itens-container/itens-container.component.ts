@@ -4,25 +4,17 @@ import {
   Output,
   EventEmitter,
   OnChanges,
-<<<<<<< HEAD
   ViewChild,
   ElementRef,
   AfterViewInit,
-=======
->>>>>>> bbdc2e88d698ed245342a75f75bd19e55d544fc6
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Item, ItemService } from '../../../services/item.service';
 import { ItemCardComponent } from '../item-card/item-card.component';
 import { PaginationComponent } from '../pagination/pagination.component';
-<<<<<<< HEAD
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../../layout/loading-spinner/loading-spinner.component';
 import { ShoppingCartService } from '../../../services/shopping-cart.service';
-=======
-import { ActivatedRoute } from '@angular/router';
-import { LoadingSpinnerComponent } from '../../../layout/loading-spinner/loading-spinner.component';
->>>>>>> bbdc2e88d698ed245342a75f75bd19e55d544fc6
 
 @Component({
   selector: 'app-itens-container',
@@ -36,15 +28,9 @@ import { LoadingSpinnerComponent } from '../../../layout/loading-spinner/loading
   templateUrl: './itens-container.component.html',
   styleUrls: ['./itens-container.component.scss'],
 })
-<<<<<<< HEAD
 export class ItensContainerComponent implements OnChanges, AfterViewInit {
   @Input() nomeCategoria!: string;
   @Input() selectedItemsInCategoria: Item[] = [];
-=======
-export class ItensContainerComponent implements OnChanges {
-  @Input() nomeCategoria!: string;
-  @Input() selectedItemsInCategoria: Item[] = []; // Inicializa com um array vazio
->>>>>>> bbdc2e88d698ed245342a75f75bd19e55d544fc6
   @Input() quantidadeCategoria!: number;
   @Input() searchQuery: string = '';
   @Output() itemSelected = new EventEmitter<Item>();
