@@ -40,7 +40,7 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
   itens: Item[] = [];
   totalPages: number = 0;
   currentPage: number = 0;
-  itemsPerPage: number = 50;
+  itemsPerPage: number = 10;
 
   loading: boolean = false;
   isPacotePage: boolean = false;
@@ -56,7 +56,10 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.loadItems();
+    this.route.queryParamMap.subscribe((params) => {
+      this.searchQuery = params.get('q') ?? '';
+      this.loadItems(this.currentPage);
+    });
   }
 
   ngAfterViewInit() {
@@ -71,33 +74,34 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
 
   loadItems(page: number = 0) {
     this.loading = true;
-    this.route.queryParamMap.subscribe((params) => {
-      this.searchQuery = params.get('q')!;
 
-      this.itemService
-        .getItems(this.searchQuery, 0, 5000)
-        .subscribe((pageData) => {
-          let filteredItems: Item[] = [];
+    this.itemService
+      .getItems(this.searchQuery, 0, 5000)
+      .subscribe((pageData) => {
+        let filteredItems: Item[] = [];
 
-          if (this.nomeCategoria) {
-            filteredItems = pageData.content.filter(
-              (item) =>
-                item.categoria.toLowerCase() ===
-                this.nomeCategoria.toLowerCase()
-            );
-          } else {
-            filteredItems = pageData.content;
-          }
+        if (this.nomeCategoria) {
+          filteredItems = pageData.content.filter(
+            (item) =>
+              item.categoria.toLowerCase() === this.nomeCategoria.toLowerCase()
+          );
+        } else {
+          filteredItems = pageData.content;
+        }
 
-          this.totalPages = Math.ceil(filteredItems.length / this.itemsPerPage);
-          this.currentPage = page;
+        console.log('Itens por página', this.itemsPerPage);
 
-          const startIndex = page * this.itemsPerPage;
-          const endIndex = startIndex + this.itemsPerPage;
-          this.itens = filteredItems.slice(startIndex, endIndex);
-          this.loading = false;
-        });
-    });
+        this.totalPages = Math.ceil(filteredItems.length / this.itemsPerPage);
+        this.currentPage = page;
+
+        const startIndex = page * Number(this.itemsPerPage);
+
+        const endIndex = startIndex + Number(this.itemsPerPage);
+        this.itens = filteredItems.slice(startIndex, endIndex);
+        this.loading = false;
+        console.log('Start Index', startIndex);
+        console.log('End Index', endIndex);
+      });
   }
 
   onPageChange(page: number) {
