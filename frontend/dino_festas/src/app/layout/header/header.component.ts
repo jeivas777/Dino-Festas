@@ -28,9 +28,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(form: NgForm) {
-    this.router.navigate(['/search'], {
-      queryParams: { q: form.value.query },
-    });
+    // Realiza a navegação para a rota de pesquisa com o parâmetro 'q'
+    this.router
+      .navigate(['/search'], {
+        queryParams: { q: form.value.query },
+      })
+      .then(() => {
+        // Após a navegação, rola a página para o topo
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth', // Rolagem suave
+        });
+      });
   }
 
   toggleCart() {

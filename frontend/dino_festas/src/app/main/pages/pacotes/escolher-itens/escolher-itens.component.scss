@@ -73,6 +73,7 @@
   display: flex;
   margin-bottom: 36px;
   flex-wrap: wrap;
+  gap: 16px;
   justify-content: space-between;
 }
 
@@ -123,10 +124,11 @@
 .stepper-container button {
   padding: 8px 32px;
   border-radius: 20px;
-  border: 1px solid var(--main-secondary);
-  color: var(--main-terciary);
-  background: #ffffff;
-  font-weight: 500;
+  border: 0;
+  color: white;
+  font-weight: 700;
+  background: var(--main-secondary);
+  width: 200px;
 }
 
 .stepper-container button:disabled {

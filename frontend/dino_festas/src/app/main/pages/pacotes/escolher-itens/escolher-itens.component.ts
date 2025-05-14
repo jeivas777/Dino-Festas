@@ -30,6 +30,11 @@ export class EscolherItensComponent {
   ) {}
 
   ngOnInit() {
+    // Após a navegação, rola a página para o topo
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth', // Rolagem suave
+    });
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.pacoteService.getKit(+idParam).subscribe((kit) => {

@@ -6,16 +6,18 @@
   justify-items: center;
   margin-top: 32px;
   margin-bottom: 32px;
-}
 
-button {
-  color: red;
+  /* Verifica se estamos na rota "/pacote" */
+  &.pacote-page {
+    max-height: 500px;
+    overflow-y: auto; /* Permite rolagem interna */
+  }
 }
 
 .selected {
-  background-color: #f0f0f0; /* Cor de fundo para itens selecionados */
-  border: 2px solid var(--main-terciary); /* Borda azul para destacar o item selecionado */
-  box-shadow: 0 0 10px var(--main-terciary); /* Sombra para efeito visual */
+  background-color: #f0f0f0;
+  border: 2px solid var(--main-terciary);
+  box-shadow: 0 0 10px var(--main-terciary);
 }
 
 .text-container {

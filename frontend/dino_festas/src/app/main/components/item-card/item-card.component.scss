@@ -2,8 +2,10 @@
   border: 1px solid var(--apoio);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
   width: 200px;
-  min-height: 360px;
+  min-height: 328px;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 .img-container {
@@ -18,11 +20,14 @@
 }
 
 .info-container {
+  display: flex;
+  justify-content: space-between;
   height: 100%;
   padding: 12px;
   display: flex;
   flex-direction: column;
   gap: 4px;
+  flex-grow: 1;
 }
 
 .info-container .tema {
@@ -36,11 +41,12 @@
 
 .info-container .nome {
   color: #1c1c1c;
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 700;
   line-height: 125%; /* 30px */
   letter-spacing: -0.48px;
+  margin-bottom: 4px;
 }
 
 .info-container svg {
@@ -51,5 +57,20 @@
 @media (max-width: 680px) {
   .item-card {
     width: 200px;
+  }
+}
+
+.cart-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.toast-container {
+  .toast {
+    transition: all 0.3s ease;
+  }
+
+  .fade {
+    opacity: 0.5;
   }
 }

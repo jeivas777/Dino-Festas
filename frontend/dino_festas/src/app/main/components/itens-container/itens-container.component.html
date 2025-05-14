@@ -1,10 +1,18 @@
-<div class="itens-container" *ngIf="itens.length > 0; else noResults">
+<div
+  #itensContainer
+  class="itens-container"
+  [ngClass]="{ 'pacote-page': isPacotePage }"
+  *ngIf="itens.length > 0; else noResults"
+>
   <div
     *ngFor="let item of itens"
     (click)="onItemClick(item)"
     [ngClass]="{ selected: isSelected(item) }"
   >
-    <app-item-card [item]="item"></app-item-card>
+    <app-item-card
+      [item]="item"
+      (addToCartEvent)="addToCart(item)"
+    ></app-item-card>
   </div>
 </div>
 
@@ -22,3 +30,30 @@
     <h2 class="nenhum-item-encontrado">Nenhum item encontrado :(</h2>
   </div>
 </ng-template>
+
+<div
+  class="toast-container position-fixed bottom-0 end-0 p-3"
+  *ngIf="showToast"
+  style="z-index: 1100"
+>
+  <div
+    *ngFor="let toast of toastMessages; let i = index"
+    class="toast show text-white bg-success align-items-center border-0"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    [ngClass]="{ fade: i > 0 }"
+  >
+    <div class="d-flex">
+      <div class="toast-body">
+        {{ toast }}
+      </div>
+      <button
+        type="button"
+        class="btn-close btn-close-white me-2 m-auto"
+        aria-label="Close"
+        (click)="removeToast(i)"
+      ></button>
+    </div>
+  </div>
+</div>
