@@ -40,7 +40,7 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
   itens: Item[] = [];
   totalPages: number = 0;
   currentPage: number = 0;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 50;
 
   loading: boolean = false;
   isPacotePage: boolean = false;
