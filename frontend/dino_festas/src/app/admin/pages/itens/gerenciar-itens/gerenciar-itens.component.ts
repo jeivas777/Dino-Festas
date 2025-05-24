@@ -26,6 +26,7 @@ export class GerenciarItensComponent {
   totalPages: number = 0; // Total pages for pagination
   currentPage: number = 0; // Current page number
   loading: boolean = false; // Flag for loading state
+  itemsPerPage: number = 50; // Number of items per page
 
   constructor(
     private itemService: ItemService,
@@ -36,17 +37,26 @@ export class GerenciarItensComponent {
   ngOnInit(): void {
     this.route.queryParamMap.subscribe((params) => {
       this.query = params.get('q') || '';
-      this.loadItems(this.query);
+      this.loadItems(this.currentPage);
     });
   }
 
-  loadItems(query: string = '', page: number = 0): void {
-    this.loading = true; // Start loading
-    this.itemService.getItems(query, page).subscribe((res) => {
-      this.itens = res.content;
-      this.totalPages = res.totalPages;
-      this.currentPage = res.number;
-      this.loading = false; // End loading once data is fetched
+  loadItems(page: number = 0) {
+    this.loading = true;
+
+    this.itemService.getItems(this.query, 0, 5000).subscribe((pageData) => {
+      let filteredItems: Item[] = [];
+
+      filteredItems = pageData.content;
+
+      this.totalPages = Math.ceil(filteredItems.length / this.itemsPerPage);
+      this.currentPage = page;
+
+      const startIndex = page * Number(this.itemsPerPage);
+
+      const endIndex = startIndex + Number(this.itemsPerPage);
+      this.itens = filteredItems.slice(startIndex, endIndex);
+      this.loading = false;
     });
   }
 
@@ -65,6 +75,14 @@ export class GerenciarItensComponent {
   }
 
   onPageChange(page: number) {
-    this.loadItems(this.query, page);
+    if (this.currentPage !== page) {
+      this.currentPage = page;
+      this.loadItems(page);
+    }
+  }
+
+  onItemsPerPageChange(newItemsPerPage: number) {
+    this.itemsPerPage = newItemsPerPage;
+    this.loadItems(0); // reinicia na página 0
   }
 }

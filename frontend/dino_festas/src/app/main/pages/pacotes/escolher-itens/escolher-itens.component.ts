@@ -19,6 +19,7 @@ export class EscolherItensComponent {
   currentStepIndex = 0;
   selectedItems: { [categoriaId: number]: Item[] } = {}; // itens selecionados por categoria
   searchQuery: string = '';
+  query: string = '';
   showToast = false;
   toastMessage = '';
 
@@ -89,6 +90,7 @@ export class EscolherItensComponent {
   }
 
   nextStep(): void {
+    console.log(this.query);
     if (!this.pacote) return;
 
     if (
@@ -96,6 +98,16 @@ export class EscolherItensComponent {
       this.currentStepIndex < this.pacote.categorias.length - 1
     ) {
       this.currentStepIndex++;
+
+      // 👉 Limpar a pesquisa da URL para trazer todos os itens novamente
+      this.router.navigate([], {
+        queryParams: { q: null },
+        queryParamsHandling: 'merge',
+      });
+
+      this.searchQuery = '';
+
+      this.query = '';
     } else if (this.currentStepIndex === this.pacote.categorias.length - 1) {
       const pacoteComItens = {
         ...this.pacote, // O pacote com todas as suas propriedades

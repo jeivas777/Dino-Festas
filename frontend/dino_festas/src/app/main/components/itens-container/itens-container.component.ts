@@ -89,8 +89,6 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
           filteredItems = pageData.content;
         }
 
-        console.log('Itens por página', this.itemsPerPage);
-
         this.totalPages = Math.ceil(filteredItems.length / this.itemsPerPage);
         this.currentPage = page;
 

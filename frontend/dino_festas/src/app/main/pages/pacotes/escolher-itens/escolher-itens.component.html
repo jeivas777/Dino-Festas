@@ -44,8 +44,9 @@
       type="text"
       name="query"
       id="query"
-      ngModel
       placeholder="Pesquise por um item"
+      [(ngModel)]="query"
+      #temaRef="ngModel"
     />
   </form>
   <p *ngIf="currentCategoria">

@@ -43,11 +43,19 @@
   ></app-item-card>
 </div>
 
-<app-pagination
+<!-- <app-pagination
   *ngIf="!loading && itens && itens.length > 0"
   [totalPages]="totalPages"
   [currentPage]="currentPage"
   (pageChange)="onPageChange($event)"
+></app-pagination> -->
+
+<app-pagination
+  [totalPages]="totalPages"
+  [currentPage]="currentPage"
+  [itemsPerPage]="itemsPerPage"
+  (pageChange)="onPageChange($event)"
+  (itemsPerPageChange)="onItemsPerPageChange($event)"
 ></app-pagination>
 
 <ng-template #noResults>
