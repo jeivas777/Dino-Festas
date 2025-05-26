@@ -21,8 +21,9 @@ public class ItemService {
 
     public Page<Item> listarTodos(String query, Pageable pageable) {
         if (query != null && !query.trim().isEmpty()) {
-            // Alterando a busca para pesquisar no nome ou no tema
-            return itemRepository.findByNomeContainingIgnoreCaseOrTemaContainingIgnoreCase(query, query, pageable);
+            String searchTerm = query.trim();
+            return itemRepository.findByNomeContainingIgnoreCaseOrTemaContainingIgnoreCaseOrCategoriaContainingIgnoreCaseOrCodigoContainingIgnoreCase(
+                    searchTerm, searchTerm, searchTerm, searchTerm, pageable);
         }
         return itemRepository.findAll(pageable);
     }
