@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: var(--main);
+  background-color: #007bff;
   height: 94px;
   padding: 15px 32px;
   display: flex;
@@ -43,7 +43,7 @@
 .cart-icon {
   cursor: pointer;
   transition: fill 0.3s ease-in-out;
-  fill: #333333;
+  fill: white;
 }
 
 .cart-icon:hover {

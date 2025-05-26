@@ -3,6 +3,7 @@
   justify-content: center;
   gap: 24px;
   padding: 32px 0;
+  padding-bottom: 64px;
   margin-bottom: 32px;
   flex-wrap: wrap;
 }
@@ -17,7 +18,7 @@
 }
 
 .text-container h1 {
-  color: #222; // Mais escuro
+  color: white; // Mais escuro
   font-size: 32px;
   font-weight: 700;
   line-height: 125%;
@@ -48,7 +49,7 @@
   display: block;
   width: 12px;
   height: 12px;
-  border: solid #333;
+  border: solid white;
   border-width: 0 2px 2px 0;
   padding: 4px;
   position: absolute;

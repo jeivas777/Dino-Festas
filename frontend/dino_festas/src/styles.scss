@@ -61,3 +61,11 @@ a {
   margin-bottom: 8px;
   color: var(--main-secondary);
 }
+
+@font-face {
+  font-family: "waterGalon"; /* Escolha um nome para sua fonte no projeto */
+  src: url("assets/fonts/WaterGalon.ttf") format("truetype"),
+    /* Formato mais moderno */;
+  font-weight: normal; /* Ou o peso da fonte, se aplicável */
+  font-style: normal; /* Ou o estilo, como italic, se aplicável */
+}

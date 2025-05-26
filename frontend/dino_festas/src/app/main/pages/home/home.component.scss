@@ -1,8 +1,9 @@
 .img-container {
   width: 100%;
-  height: 600px;
+  height: 100vh;
   display: flex;
   justify-content: center;
+  font-family: "waterGalon", sans-serif;
   align-items: center;
   font-size: 48px;
   text-align: center;
@@ -11,19 +12,9 @@
   letter-spacing: 2px;
   padding: 0 20px;
   position: relative;
-  margin-bottom: 40px;
-
-  background-image: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, 0.5),
-      rgba(255, 255, 255, 1)
-    ),
-    url("https://imagens-kits-dinofestas.s3.us-east-2.amazonaws.com/AdobeStock_1308923584.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0;
-  transition: opacity 1.2s ease-in-out;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 70%, #f6a532),
+    url(https://imagens-kits-dinofestas.s3.us-east-2.amazonaws.com/heroDino.jpg)
+      no-repeat center center / cover;
 }
 
 .img-container.loaded {
@@ -56,7 +47,29 @@
 }
 
 .text-container h1 {
+  font-family: "waterGalon", sans-serif;
   color: #333;
+  text-align: center;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 125%; /* 40px */
+  letter-spacing: -0.64px;
+}
+
+.pacotes .text-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  padding: 8px;
+  color: white;
+}
+
+.pacotes .text-container h1 {
+  font-family: "waterGalon", sans-serif;
+  color: white;
   text-align: center;
   font-size: 32px;
   font-style: normal;
@@ -82,4 +95,13 @@
   .home-container {
     padding: 0;
   }
+}
+
+.pacotes-container {
+  background: #f6a532;
+}
+
+.app-pacotes-container {
+  max-width: 1200px;
+  margin: 0 auto;
 }
