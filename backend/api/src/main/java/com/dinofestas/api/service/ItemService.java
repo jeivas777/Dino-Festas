@@ -18,11 +18,17 @@ public class ItemService {
         this.itemRepository = itemRepository;
         this.s3Service = s3Service;
     }
-
+    
     public Page<Item> listarTodos(String query, Pageable pageable) {
         if (query != null && !query.trim().isEmpty()) {
-            // Alterando a busca para pesquisar no nome ou no tema
-            return itemRepository.findByNomeContainingIgnoreCaseOrTemaContainingIgnoreCase(query, query, pageable);
+            Long codigoLong = null;
+            try {
+                codigoLong = Long.parseLong(query);
+            } catch (NumberFormatException e) {
+                // query não é número, ignorar erro e manter codigoLong como null
+            }
+            return itemRepository.findByNomeContainingIgnoreCaseOrTemaContainingIgnoreCaseOrCategoriaContainingIgnoreCaseOrCodigo(
+                query, query, query, codigoLong, pageable);
         }
         return itemRepository.findAll(pageable);
     }
