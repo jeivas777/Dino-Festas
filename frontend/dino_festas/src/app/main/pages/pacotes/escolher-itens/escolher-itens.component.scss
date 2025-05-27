@@ -71,7 +71,7 @@
 .stepper-container {
   width: 100%;
   display: flex;
-  margin-bottom: 36px;
+  margin-bottom: 32px;
   flex-wrap: wrap;
   gap: 16px;
   justify-content: space-between;
@@ -152,4 +152,17 @@
   .stepper-container {
     gap: 16px;
   }
+}
+
+.title {
+  color: var(--primary-color);
+}
+
+.stepper-p {
+  margin-bottom: 8px;
+}
+
+.stepper-obs {
+  font-size: 14px;
+  color: gray;
 }

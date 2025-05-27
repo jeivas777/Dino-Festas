@@ -1,6 +1,8 @@
 <div class="escolher-itens-container" *ngIf="pacote">
   <h1 class="title">{{ pacote.nome }}</h1>
-  <p>Escolha os itens para compor seu pacote!</p>
+  <div class="stepper-p">
+    <p>Escolha os itens para compor seu pacote!</p>
+  </div>
 
   <!-- Stepper Dinâmico -->
   <div class="stepper-container">
@@ -54,6 +56,7 @@
     {{ selecionadosNaCategoriaAtual.length }} de
     {{ currentCategoria.quantidade }}
   </p>
+  <p class="stepper-obs">Verifique a disponibilidade dos itens com a loja.</p>
   <!-- Itens filtrados -->
   <app-itens-container
     *ngIf="currentCategoria"

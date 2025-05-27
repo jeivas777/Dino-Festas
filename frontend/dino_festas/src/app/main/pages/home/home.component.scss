@@ -5,7 +5,7 @@
   justify-content: center;
   font-family: "waterGalon", sans-serif;
   align-items: center;
-  font-size: 48px;
+  font-size: 80px;
   text-align: center;
   color: white;
   font-weight: 700;
@@ -15,6 +15,11 @@
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 70%, #f6a532),
     url(https://imagens-kits-dinofestas.s3.us-east-2.amazonaws.com/heroDino.jpg)
       no-repeat center center / cover;
+}
+
+.img-container span {
+  text-shadow: rgba(0, 0, 0, 0.7) 2px 2px 5px;
+  margin-top: 80px;
 }
 
 .img-container.loaded {
@@ -44,6 +49,10 @@
   align-items: center;
   text-align: center;
   padding: 8px;
+}
+
+.text-container p {
+  font-size: 18px;
 }
 
 .text-container h1 {
