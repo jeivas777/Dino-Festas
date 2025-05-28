@@ -2,7 +2,7 @@
   <div class="content-container">
     <div class="image-container"><img [src]="mainImage" alt="" /></div>
 
-    <h2>{{ item.nome }}</h2>
+    <h2>{{ item.nome }} - #{{ item.codigo }}</h2>
   </div>
   <div class="buttons-container">
     <button class="editar" [routerLink]="['/admin/itens', item.id, 'editar']">
