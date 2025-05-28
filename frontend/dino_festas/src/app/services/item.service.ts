@@ -24,8 +24,7 @@ export interface Page<T> {
   providedIn: 'root',
 })
 export class ItemService {
-  // private baseEndpoint = 'https://dino-festas.onrender.com/api/itens';
-  private baseEndpoint = 'http://localhost:8081/api/itens';
+  private baseEndpoint = 'https://dino-festas.onrender.com/api/itens';
 
   constructor(private http: HttpClient) {}
 
