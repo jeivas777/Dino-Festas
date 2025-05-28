@@ -28,7 +28,6 @@
   padding: 12px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
   flex-grow: 1;
 }
 
@@ -58,7 +57,8 @@
 
 .cart-container {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .toast-container {
@@ -76,4 +76,15 @@
     width: 100%;
     max-width: 100%;
   }
+}
+
+.codigo {
+  margin-bottom: 4px;
+  color: #333333;
+  font-size: 14px;
+}
+
+.valor-container {
+  display: flex;
+  justify-content: space-between;
 }
