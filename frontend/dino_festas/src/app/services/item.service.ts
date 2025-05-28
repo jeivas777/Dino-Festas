@@ -38,13 +38,12 @@ export class ItemService {
       .set('page', page.toString())
       .set('size', size.toString());
 
-    // Adiciona o filtro de busca e categoria, se fornecido
     if (query) {
-      params = params.set('termoBusca', query); // Mudei para 'termoBusca' como no backend
+      params = params.set('termoBusca', query);
     }
 
     if (categoria) {
-      params = params.set('filtroCategoria', categoria); // Envia filtroCategoria
+      params = params.set('filtroCategoria', categoria);
     }
 
     return this.http.get<Page<Item>>(this.baseEndpoint, { params });

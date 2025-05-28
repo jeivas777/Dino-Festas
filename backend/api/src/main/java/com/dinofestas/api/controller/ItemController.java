@@ -23,9 +23,10 @@ public class ItemController {
 
     @GetMapping
     public Page<Item> listarTodos(
-            @RequestParam(required = false) String query,
+            @RequestParam(required = false) String termoBusca,
+            @RequestParam(required = false) String filtroCategoria,
             @PageableDefault(size = 10) Pageable pageable) {
-        return itemService.listarTodos(query, pageable);
+        return itemService.listarTodos(filtroCategoria, termoBusca, pageable);
     }
 
     @GetMapping("/{id}")

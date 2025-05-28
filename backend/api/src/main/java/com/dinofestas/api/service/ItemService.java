@@ -2,9 +2,12 @@ package com.dinofestas.api.service;
 
 import com.dinofestas.api.model.Item;
 import com.dinofestas.api.repository.ItemRepository;
+import com.dinofestas.api.repository.specification.ItemSpecification;
+
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Optional;
 
@@ -19,18 +22,18 @@ public class ItemService {
         this.s3Service = s3Service;
     }
     
-    public Page<Item> listarTodos(String query, Pageable pageable) {
-        if (query != null && !query.trim().isEmpty()) {
-            Long codigoLong = null;
-            try {
-                codigoLong = Long.parseLong(query);
-            } catch (NumberFormatException e) {
-                // query não é número, ignorar erro e manter codigoLong como null
-            }
-            return itemRepository.findByNomeContainingIgnoreCaseOrTemaContainingIgnoreCaseOrCategoriaContainingIgnoreCaseOrCodigo(
-                query, query, query, codigoLong, pageable);
+    public Page<Item> listarTodos(String filtroCategoria, String termoBusca, Pageable pageable) {
+        Specification<Item> spec = Specification.where(null); // Inicia uma Specification "vazia"
+
+        if (filtroCategoria != null && !filtroCategoria.trim().isEmpty()) {
+            spec = spec.and(ItemSpecification.comCategoriaExata(filtroCategoria));
         }
-        return itemRepository.findAll(pageable);
+
+        if (termoBusca != null && !termoBusca.trim().isEmpty()) {
+            spec = spec.and(ItemSpecification.comTermoBuscaNosCampos(termoBusca));
+        }
+
+        return itemRepository.findAll(spec, pageable);
     }
 
     public Optional<Item> buscarPorId(Long id) {
