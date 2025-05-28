@@ -74,31 +74,19 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
 
   loadItems(page: number = 0) {
     this.loading = true;
+    console.log(this.nomeCategoria);
 
     this.itemService
-      .getItems(this.searchQuery, 0, 5000)
+      .getItems(this.searchQuery, this.nomeCategoria, page, this.itemsPerPage)
       .subscribe((pageData) => {
-        let filteredItems: Item[] = [];
+        this.itens = pageData.content; // Inicializa itens com todos os itens recebidos
 
-        if (this.nomeCategoria) {
-          filteredItems = pageData.content.filter(
-            (item) =>
-              item.categoria.toLowerCase() === this.nomeCategoria.toLowerCase()
-          );
-        } else {
-          filteredItems = pageData.content;
-        }
+        this.totalPages = pageData.totalPages;
+        this.currentPage = pageData.number;
 
-        this.totalPages = Math.ceil(filteredItems.length / this.itemsPerPage);
-        this.currentPage = page;
+        console.log('Itens carregados:', this.itens);
 
-        const startIndex = page * Number(this.itemsPerPage);
-
-        const endIndex = startIndex + Number(this.itemsPerPage);
-        this.itens = filteredItems.slice(startIndex, endIndex);
         this.loading = false;
-        console.log('Start Index', startIndex);
-        console.log('End Index', endIndex);
       });
   }
 

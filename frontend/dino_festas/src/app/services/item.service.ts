@@ -24,12 +24,14 @@ export interface Page<T> {
   providedIn: 'root',
 })
 export class ItemService {
-  private baseEndpoint = 'https://dino-festas.onrender.com/api/itens';
+  // private baseEndpoint = 'https://dino-festas.onrender.com/api/itens';
+  private baseEndpoint = 'http://localhost:8081/api/itens';
 
   constructor(private http: HttpClient) {}
 
   getItems(
     query: string = '',
+    categoria: string = '',
     page: number = 0,
     size: number = 10
   ): Observable<Page<Item>> {
@@ -37,8 +39,13 @@ export class ItemService {
       .set('page', page.toString())
       .set('size', size.toString());
 
+    // Adiciona o filtro de busca e categoria, se fornecido
     if (query) {
-      params = params.set('query', query);
+      params = params.set('termoBusca', query); // Mudei para 'termoBusca' como no backend
+    }
+
+    if (categoria) {
+      params = params.set('filtroCategoria', categoria); // Envia filtroCategoria
     }
 
     return this.http.get<Page<Item>>(this.baseEndpoint, { params });

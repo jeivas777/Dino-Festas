@@ -44,20 +44,18 @@ export class GerenciarItensComponent {
   loadItems(page: number = 0) {
     this.loading = true;
 
-    this.itemService.getItems(this.query, 0, 5000).subscribe((pageData) => {
-      let filteredItems: Item[] = [];
+    this.itemService
+      .getItems(this.query, '', page, this.itemsPerPage)
+      .subscribe((pageData) => {
+        this.itens = pageData.content; // Inicializa itens com todos os itens recebidos
 
-      filteredItems = pageData.content;
+        this.totalPages = pageData.totalPages;
+        this.currentPage = pageData.number;
 
-      this.totalPages = Math.ceil(filteredItems.length / this.itemsPerPage);
-      this.currentPage = page;
+        console.log('Itens carregados:', pageData.content);
 
-      const startIndex = page * Number(this.itemsPerPage);
-
-      const endIndex = startIndex + Number(this.itemsPerPage);
-      this.itens = filteredItems.slice(startIndex, endIndex);
-      this.loading = false;
-    });
+        this.loading = false;
+      });
   }
 
   onSubmit(form: NgForm) {
