@@ -76,7 +76,6 @@ export class EscolherItensComponent {
         this.currentCategoria.quantidade
       ) {
         this.selectedItems[categoriaId].push(item);
-        console.log(this.selectedItems);
       }
     }
   }
