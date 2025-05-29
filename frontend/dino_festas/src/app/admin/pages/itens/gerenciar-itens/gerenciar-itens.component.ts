@@ -52,8 +52,6 @@ export class GerenciarItensComponent {
         this.totalPages = pageData.totalPages;
         this.currentPage = pageData.number;
 
-        console.log('Itens carregados:', pageData.content);
-
         this.loading = false;
       });
   }

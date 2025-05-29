@@ -3,11 +3,9 @@ import {
   Input,
   Output,
   EventEmitter,
-  OnChanges,
   ViewChild,
   ElementRef,
   AfterViewInit,
-  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Item, ItemService } from '../../../services/item.service';
@@ -16,6 +14,8 @@ import { PaginationComponent } from '../pagination/pagination.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../../layout/loading-spinner/loading-spinner.component';
 import { ShoppingCartService } from '../../../services/shopping-cart.service';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-itens-container',
@@ -29,11 +29,12 @@ import { ShoppingCartService } from '../../../services/shopping-cart.service';
   templateUrl: './itens-container.component.html',
   styleUrls: ['./itens-container.component.scss'],
 })
-export class ItensContainerComponent implements OnChanges, AfterViewInit {
-  @Input() nomeCategoria!: string;
+export class ItensContainerComponent implements AfterViewInit {
+  private categoria$ = new BehaviorSubject<string | null>(null);
+  private searchQuery$ = new BehaviorSubject<string>('');
+
   @Input() selectedItemsInCategoria: Item[] = [];
   @Input() quantidadeCategoria!: number;
-  @Input() searchQuery: string = '';
   @Output() itemSelected = new EventEmitter<Item>();
 
   @ViewChild('itensContainer') itensContainer!: ElementRef;
@@ -47,7 +48,7 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
   isPacotePage: boolean = false;
 
   showToast = false;
-  toastMessages: string[] = []; // Lista de mensagens de toast
+  toastMessages: string[] = [];
 
   constructor(
     private itemService: ItemService,
@@ -56,40 +57,46 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
     private router: Router
   ) {}
 
+  // Inputs reativos com setters
+  private _nomeCategoria: string = '';
+  @Input() set nomeCategoria(value: string) {
+    this._nomeCategoria = value;
+    this.categoria$.next(value);
+  }
+
+  private _searchQuery: string = '';
+  @Input() set searchQuery(value: string) {
+    this._searchQuery = value;
+    this.searchQuery$.next(value);
+  }
+
   ngOnInit() {
+    // Escuta alterações da URL
     this.route.queryParamMap.subscribe((params) => {
-      this.searchQuery = params.get('q') ?? '';
-      this.loadItems(this.currentPage);
+      const novaBusca = params.get('q') ?? '';
+      this.searchQuery = novaBusca;
     });
+
+    combineLatest([this.categoria$, this.searchQuery$])
+      .pipe(debounceTime(100))
+      .subscribe(([categoria, query]) => {
+        this.loadItems(this.currentPage, query, categoria ?? '');
+      });
   }
 
   ngAfterViewInit() {
-    this.isPacotePage = this.router.url.includes('/pacote'); // Verifica se a rota é '/pacote'
+    this.isPacotePage = this.router.url.includes('/pacote');
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (
-      (changes['nomeCategoria'] && !changes['nomeCategoria'].firstChange) ||
-      (changes['searchQuery'] && !changes['searchQuery'].firstChange)
-    ) {
-      this.loadItems();
-    }
-  }
-
-  loadItems(page: number = 0) {
+  loadItems(page: number = 0, query: string, categoria: string = '') {
     this.loading = true;
-    console.log(this.nomeCategoria);
 
     this.itemService
-      .getItems(this.searchQuery, this.nomeCategoria, page, this.itemsPerPage)
+      .getItems(query, categoria, page, this.itemsPerPage)
       .subscribe((pageData) => {
-        this.itens = pageData.content; // Inicializa itens com todos os itens recebidos
-
+        this.itens = pageData.content;
         this.totalPages = pageData.totalPages;
         this.currentPage = pageData.number;
-
-        console.log('Itens carregados:', this.itens);
-
         this.loading = false;
       });
   }
@@ -97,9 +104,10 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
   onPageChange(page: number) {
     if (this.currentPage !== page) {
       this.currentPage = page;
-      this.loadItems(page);
+      this.loadItems(page, this._searchQuery, this._nomeCategoria);
+
       if (this.itensContainer) {
-        const offset = 100; // Altura do seu header (ajuste conforme necessário)
+        const offset = 100;
         const top = this.itensContainer.nativeElement.offsetTop - offset;
 
         window.scrollTo({
@@ -123,11 +131,10 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
     );
   }
 
-  // Função para remover o toast
   removeToast(index: number): void {
     this.toastMessages.splice(index, 1);
     if (this.toastMessages.length === 0) {
-      this.showToast = false; // Esconde o toast quando não houver mais mensagens
+      this.showToast = false;
     }
   }
 
@@ -135,20 +142,16 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
     this.cartService.addToCart(item);
 
     const message = `${item.nome} adicionado ao carrinho!`;
-    this.toastMessages.push(message); // Adiciona a mensagem à lista
+    this.toastMessages.push(message);
     this.showToast = true;
 
     setTimeout(() => {
-      this.removeToast(0); // Remove a mensagem mais antiga após 3 segundos
-    }, 3000); // Exibe por 3 segundos
-  }
-
-  eventChamad(item: Number): void {
-    console.log('Evento chamado');
+      this.removeToast(0);
+    }, 3000);
   }
 
   onItemsPerPageChange(newItemsPerPage: number) {
     this.itemsPerPage = newItemsPerPage;
-    this.loadItems(0); // reinicia na página 0
+    this.loadItems(0, this._searchQuery, this._nomeCategoria);
   }
 }

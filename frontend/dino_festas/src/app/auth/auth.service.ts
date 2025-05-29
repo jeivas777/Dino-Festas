@@ -32,7 +32,6 @@ export class AuthService {
 
     if (token) {
       headers = headers.set('Authorization', `Bearer ${token}`);
-      console.log(token);
     }
 
     return headers;

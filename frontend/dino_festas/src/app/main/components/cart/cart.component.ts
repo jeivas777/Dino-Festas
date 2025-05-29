@@ -22,7 +22,6 @@ export class CartComponent {
   ngOnInit() {
     this.cartService.cartProducts$.subscribe((response) => {
       this.cartProducts = response;
-      console.log(response);
     });
   }
 
