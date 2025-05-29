@@ -90,7 +90,6 @@ export class EscolherItensComponent {
   }
 
   nextStep(): void {
-    console.log(this.query);
     if (!this.pacote) return;
 
     if (

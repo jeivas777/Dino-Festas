@@ -7,6 +7,7 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Item, ItemService } from '../../../services/item.service';
@@ -66,8 +67,11 @@ export class ItensContainerComponent implements OnChanges, AfterViewInit {
     this.isPacotePage = this.router.url.includes('/pacote'); // Verifica se a rota é '/pacote'
   }
 
-  ngOnChanges() {
-    if (this.nomeCategoria || this.searchQuery) {
+  ngOnChanges(changes: SimpleChanges) {
+    if (
+      (changes['nomeCategoria'] && !changes['nomeCategoria'].firstChange) ||
+      (changes['searchQuery'] && !changes['searchQuery'].firstChange)
+    ) {
       this.loadItems();
     }
   }
