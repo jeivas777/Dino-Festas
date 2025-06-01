@@ -17,9 +17,21 @@
           name="categoriaNome{{ i }}"
           placeholder="Nome da Categoria"
           [(ngModel)]="categoria.nome"
+          [disabled]="categoria.vinculada"
           required
         />
-        <button type="button" (click)="removeCategoria(i)">Remover</button>
+
+        <button
+          type="button"
+          (click)="removeCategoria(i)"
+          [disabled]="categoria.vinculada"
+        >
+          Remover
+        </button>
+
+        <span *ngIf="categoria.vinculada" style="color: red; font-size: 12px">
+          Categoria vinculada a itens!
+        </span>
       </div>
 
       <button
