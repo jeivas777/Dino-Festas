@@ -83,8 +83,7 @@ export class GerenciarCategoriasComponent {
   }
 
   removeCategoria(index: number) {
-    console.log('Removendo categoria no índice:', index);
-    // this.categorias.splice(index, 1);
+    this.categorias.splice(index, 1);
   }
 
   onSubmit(form: NgForm) {
