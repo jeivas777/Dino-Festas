@@ -6,11 +6,17 @@ import { Item } from '../../../../services/item.service';
 import { Kit, KitService } from '../../../../services/kit.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShoppingCartService } from '../../../../services/shopping-cart.service';
+import { LoadingSpinnerComponent } from '../../../../layout/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-escolher-itens',
   standalone: true,
-  imports: [FormsModule, CommonModule, ItensContainerComponent],
+  imports: [
+    FormsModule,
+    CommonModule,
+    ItensContainerComponent,
+    LoadingSpinnerComponent,
+  ],
   templateUrl: './escolher-itens.component.html',
   styleUrl: './escolher-itens.component.scss',
 })
@@ -22,6 +28,7 @@ export class EscolherItensComponent {
   query: string = '';
   showToast = false;
   toastMessage = '';
+  loading = false;
 
   constructor(
     private pacoteService: KitService,
@@ -112,6 +119,7 @@ export class EscolherItensComponent {
         ...this.pacote, // O pacote com todas as suas propriedades
         itensSelecionados: this.selectedItems, // Adicionando os itens selecionados no pacote
       };
+      this.loading = true;
 
       this.cartService.addToCart(pacoteComItens);
 
@@ -121,7 +129,8 @@ export class EscolherItensComponent {
 
       setTimeout(() => {
         this.showToast = false;
-        this.router.navigate(['/home']); // Navega após mostrar o toast
+        this.router.navigate(['/home']);
+        this.loading = false;
       }, 3000);
     }
   }
