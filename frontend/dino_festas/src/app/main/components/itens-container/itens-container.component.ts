@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../../layout/loading-spinner/loading-spinner.component';
 import { ShoppingCartService } from '../../../services/shopping-cart.service';
 import { BehaviorSubject, combineLatest } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-itens-container',
@@ -32,6 +32,7 @@ import { debounceTime } from 'rxjs/operators';
 export class ItensContainerComponent implements AfterViewInit {
   private categoria$ = new BehaviorSubject<string | null>(null);
   private searchQuery$ = new BehaviorSubject<string>('');
+  private page$ = new BehaviorSubject<number>(0); // 1. BehaviorSubject para a página
 
   @Input() selectedItemsInCategoria: Item[] = [];
   @Input() quantidadeCategoria!: number;
@@ -71,16 +72,29 @@ export class ItensContainerComponent implements AfterViewInit {
   }
 
   ngOnInit() {
-    // Escuta alterações da URL
-    this.route.queryParamMap.subscribe((params) => {
-      const novaBusca = params.get('q') ?? '';
-      this.searchQuery = novaBusca;
-    });
+    // 2. Escuta a URL para definir o estado inicial e reativo
+    this.route.queryParamMap
+      .pipe(
+        map((params) => ({
+          q: params.get('q') ?? '',
+          page: params.get('page') ? +params.get('page')! : 0,
+        })),
+        distinctUntilChanged(
+          (prev, curr) => prev.q === curr.q && prev.page === curr.page
+        )
+      )
+      .subscribe((params) => {
+        this.searchQuery$.next(params.q);
+        this.page$.next(params.page);
+        this.currentPage = params.page; // Sincroniza o estado local
+      });
 
-    combineLatest([this.categoria$, this.searchQuery$])
+    // 3. combineLatest agora inclui a página
+    combineLatest([this.categoria$, this.searchQuery$, this.page$])
       .pipe(debounceTime(100))
-      .subscribe(([categoria, query]) => {
-        this.loadItems(this.currentPage, query, categoria ?? '');
+      .subscribe(([categoria, query, page]) => {
+        // O loadItems agora é acionado por qualquer uma das três alterações
+        this.loadItems(page, query, categoria ?? '');
       });
   }
 
@@ -101,19 +115,21 @@ export class ItensContainerComponent implements AfterViewInit {
       });
   }
 
+  // 4. onPageChange agora atualiza a URL
   onPageChange(page: number) {
     if (this.currentPage !== page) {
-      this.currentPage = page;
-      this.loadItems(page, this._searchQuery, this._nomeCategoria);
+      // Navega para a mesma rota, mas com o novo query param 'page'
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { page: page },
+        queryParamsHandling: 'merge', // Mantém os outros query params (ex: 'q')
+      });
 
+      // Opcional: Scroll to top
       if (this.itensContainer) {
         const offset = 100;
         const top = this.itensContainer.nativeElement.offsetTop - offset;
-
-        window.scrollTo({
-          top: top,
-          behavior: 'smooth',
-        });
+        window.scrollTo({ top: top, behavior: 'smooth' });
       }
     }
   }

@@ -107,7 +107,7 @@ export class EscolherItensComponent {
 
       // 👉 Limpar a pesquisa da URL para trazer todos os itens novamente
       this.router.navigate([], {
-        queryParams: { q: null },
+        queryParams: { q: null, page: 0 },
         queryParamsHandling: 'merge',
       });
 
@@ -137,7 +137,7 @@ export class EscolherItensComponent {
 
   onSearch(form: NgForm): void {
     this.router.navigate([], {
-      queryParams: { q: form.value.query },
+      queryParams: { q: form.value.query, page: null },
       queryParamsHandling: 'merge',
     });
   }
