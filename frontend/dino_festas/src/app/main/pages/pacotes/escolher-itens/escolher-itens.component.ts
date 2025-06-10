@@ -107,7 +107,7 @@ export class EscolherItensComponent {
 
       // 👉 Limpar a pesquisa da URL para trazer todos os itens novamente
       this.router.navigate([], {
-        queryParams: { q: null, page: 0 },
+        queryParams: { q: null, page: null },
         queryParamsHandling: 'merge',
       });
 
