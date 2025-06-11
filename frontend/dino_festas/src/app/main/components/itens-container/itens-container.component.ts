@@ -115,17 +115,20 @@ export class ItensContainerComponent implements AfterViewInit {
       });
   }
 
-  // 4. onPageChange agora atualiza a URL
   onPageChange(page: number) {
     if (this.currentPage !== page) {
-      // Navega para a mesma rota, mas com o novo query param 'page'
+      // Se a navegação for para a página 0, definimos o parâmetro como nulo para
+      // removê-lo da URL. Para outras páginas, usamos o número da página.
+      // Isso cria uma URL canônica para a primeira página e garante a detecção da mudança.
+      const pageParam = page === 0 ? null : page;
+
       this.router.navigate([], {
         relativeTo: this.route,
-        queryParams: { page: page },
+        queryParams: { page: pageParam },
         queryParamsHandling: 'merge', // Mantém os outros query params (ex: 'q')
       });
 
-      // Opcional: Scroll to top
+      // Scroll para o topo do container
       if (this.itensContainer) {
         const offset = 100;
         const top = this.itensContainer.nativeElement.offsetTop - offset;
@@ -168,6 +171,23 @@ export class ItensContainerComponent implements AfterViewInit {
 
   onItemsPerPageChange(newItemsPerPage: number) {
     this.itemsPerPage = newItemsPerPage;
-    this.loadItems(0, this._searchQuery, this._nomeCategoria);
+
+    // Se já estivermos na página 0, a navegação não será acionada.
+    // Nesse caso, chamamos `loadItems` diretamente para forçar a atualização.
+    if (this.currentPage === 0) {
+      this.loadItems(
+        0,
+        this.searchQuery$.getValue(),
+        this.categoria$.getValue() ?? ''
+      );
+    } else {
+      // Se estivermos em outra página, a navegação para a página 0 funcionará
+      // e acionará o fluxo reativo normalmente.
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { page: null }, // Volta para a página 0, removendo o parâmetro
+        queryParamsHandling: 'merge', // Mantém o query param 'q' existente
+      });
+    }
   }
 }
